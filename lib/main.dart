@@ -1,145 +1,248 @@
+//import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-//import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 
 void main() {
-  runApp(MyApp());
+  const mainColor = Colors.blue;
+  const textColor = Colors.white;
+  runApp(
+    MaterialApp(
+      title: "Invoice Management",
+      // Start the app with the "/" named route. In this case, the app starts
+      // on the FirstScreen widget.
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => const Home(title: 'Blue Ribbon Gutters'),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/prices': (context) => const Placeholder(),
+        '/invoice': (context) => const Placeholder(),
+        '/materials': (context) => const Materials(),
+        '/materials/edit': (context) => const Edit(customdata: ''),
+      },
+      theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
+          canvasColor: mainColor,
+          //scaffoldBackgroundColor: mainColor,
+          textTheme: const TextTheme(
+              titleLarge: TextStyle(
+                color: textColor,
+                fontSize: 40,
+              ),
+              bodyLarge: TextStyle(
+                color: textColor,
+                fontSize: 40,
+              ),
+              displayMedium: TextStyle(
+                color: textColor,
+                fontSize: 20,
+              )),
+          iconTheme: IconThemeData(color: textColor)),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  static const appTitle = 'Blue Ribon Gutters';
-  static const mainColor = Colors.blue;
-  static const textColor = Colors.white;
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: appTitle,
-        theme: ThemeData(
-            useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
-            canvasColor: mainColor,
-            //scaffoldBackgroundColor: mainColor,
-            textTheme: TextTheme(
-                bodyLarge: TextStyle(
-                  color: textColor,
-                  fontSize: 40,
-                ),
-                bodySmall: TextStyle(
-                  color: textColor,
-                  fontSize: 20,
-                )),
-            primaryIconTheme: IconThemeData(color: textColor)),
-        home: MyHomePage(title: appTitle),
-      ),
-    );
-  }
-}
-
-class MyAppState extends ChangeNotifier {}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
+class Home extends StatelessWidget {
   final String title;
+  const Home({super.key, required this.title});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    Placeholder(),
-    Placeholder(),
-    Placeholder(),
-  ];
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         appBar: AppBar(
-          iconTheme: Theme.of(context).primaryIconTheme,
           title: Text(
-            widget.title,
-            style: Theme.of(context).textTheme.bodyLarge,
+            title,
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
           ),
-          centerTitle: true,
           backgroundColor: Theme.of(context).colorScheme.primary,
+          centerTitle: true,
         ),
         body: Center(
-          child: _widgetOptions[_selectedIndex],
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            FittedBox(
+                fit: BoxFit.cover,
+                child: Text("Welcome",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                        ))),
+            SizedBox(height: constraints.maxHeight * .08),
+            ElevatedButton(
+              // Within the `FirstScreen` widget
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/prices');
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(
+                    constraints.maxWidth - (constraints.maxWidth * .2),
+                    constraints.maxHeight * .08),
+              ),
+              child: Text('Prices',
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      )),
+            ),
+            SizedBox(height: constraints.maxHeight * .08),
+            ElevatedButton(
+              // Within the `FirstScreen` widget
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/invoice');
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(
+                    constraints.maxWidth - (constraints.maxWidth * .2),
+                    constraints.maxHeight * .08),
+              ),
+              child: Text('Invoice',
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      )),
+            ),
+            SizedBox(height: constraints.maxHeight * .08),
+            ElevatedButton(
+              // Within the `FirstScreen` widget
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/materials');
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(
+                    constraints.maxWidth - (constraints.maxWidth * .2),
+                    constraints.maxHeight * .08),
+              ),
+              child: Text('Material',
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      )),
+            ),
+          ]),
         ),
       );
     });
   }
 }
 
-class HomePage extends StatelessWidget {
+class Materials extends StatefulWidget {
+  const Materials({super.key});
+
+  @override
+  State<Materials> createState() => _MaterialsState();
+}
+
+class _MaterialsState extends State<Materials> {
+  final List<dynamic> listSelection = [
+    {
+      'id': 0,
+      'header': 'Tap to add customer',
+      'icon': Icon(Icons.add_circle_outlined),
+      //'taps': _addNewUploadDoc(),
+    },
+  ];
+
+  int _selected = 0;
+  int index = 0;
+  int _count = 1;
+  late List<Widget> _upload = List.generate(_count, (int i) => Materials());
+
   @override
   Widget build(BuildContext context) {
-    //var appState = context.watch<MyAppState>();
-
     return LayoutBuilder(builder: (context, constraints) {
-      return Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          FittedBox(
-              fit: BoxFit.cover, child: Text("Welcome", style: MainText.title)),
-          SizedBox(height: constraints.maxHeight * .1),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(
-                  constraints.maxWidth - (constraints.maxWidth * .2),
-                  constraints.maxHeight * .08),
-            ),
-            onPressed: () {},
-            child: Text('Prices', style: MainText.buttons),
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Material',
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
           ),
-          SizedBox(height: constraints.maxHeight * .08),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(
-                  constraints.maxWidth - (constraints.maxWidth * .2),
-                  constraints.maxHeight * .08),
-            ),
-            onPressed: () {},
-            child: Text('Invoice', style: MainText.buttons),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          centerTitle: true,
+          iconTheme: Theme.of(context).iconTheme,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                  child: ListView.separated(
+                itemCount: _count,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(listSelection[index]['header']),
+                        onTap: () {
+                          if (index != _count - 1) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Edit(customdata: listSelection[index]),
+                              ),
+                            );
+                          } else {
+                            _addNewCustomer();
+                          }
+                        },
+                        leading: listSelection[index]['icon'],
+                      ),
+                    ],
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    const Divider(thickness: 1),
+              ))
+            ],
           ),
-          SizedBox(height: constraints.maxHeight * .08),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(
-                  constraints.maxWidth - (constraints.maxWidth * .2),
-                  constraints.maxHeight * .08),
-            ),
-            onPressed: () {},
-            child: Text('Material', style: MainText.buttons),
-          ),
-        ]),
+        ),
       );
+    });
+  }
+
+  void _addNewCustomer() {
+    setState(() {
+      listSelection.insert(_count - 1, {
+        'id': _count,
+        'header': 'unnamed customer ' + (_count).toString(),
+        //'icon': Icon(Icons.add_circle_outlined),
+      });
+      _count++;
     });
   }
 }
 
-class MainText {
-  static const TextStyle buttons = TextStyle(
-    fontSize: 24,
-    color: Color.fromARGB(255, 0, 0, 0),
-    //zfontWeight: FontWeight.bold,
-  );
-  static const TextStyle title = TextStyle(
-    fontSize: 40,
-    color: Color.fromARGB(255, 0, 0, 0),
-    //zfontWeight: FontWeight.bold,
-  );
+class Edit extends StatefulWidget {
+  final dynamic customdata;
+  const Edit({super.key, required this.customdata});
+  @override
+  State<Edit> createState() => _EditState();
+}
+
+class _EditState extends State<Edit> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.customdata.toString().substring(
+              widget.customdata.toString().indexOf("header") + 8,
+              widget.customdata.toString().indexOf("}")),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        centerTitle: true,
+        iconTheme: Theme.of(context).iconTheme,
+      ),
+      body: Center(
+        child: Placeholder(),
+      ),
+    );
+  }
 }
