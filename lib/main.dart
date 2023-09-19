@@ -144,10 +144,10 @@ class _MaterialsState extends State<Materials> {
     },
   ];
 
-  int _selected = 0;
+  //int _selected = 0;
   int index = 0;
   int _count = 1;
-  late List<Widget> _upload = List.generate(_count, (int i) => Materials());
+  //late List<Widget> _upload = List.generate(_count, (int i) => Materials());
 
   @override
   Widget build(BuildContext context) {
@@ -228,14 +228,23 @@ class _EditState extends State<Edit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.customdata.toString().substring(
-              widget.customdata.toString().indexOf("header") + 8,
-              widget.customdata.toString().indexOf("}")),
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-        ),
+        title: Row(mainAxisSize: MainAxisSize.min, children: [
+          Text(
+            widget.customdata.toString().substring(
+                widget.customdata.toString().indexOf("header") + 8,
+                widget.customdata.toString().indexOf("}")),
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+          ),
+          SizedBox(width: 10),
+          GestureDetector(
+            onTap: () {
+              //Navigator.pop(context);
+            },
+            child: Icon(Icons.edit),
+          )
+        ]),
         backgroundColor: Theme.of(context).colorScheme.primary,
         centerTitle: true,
         iconTheme: Theme.of(context).iconTheme,
@@ -243,6 +252,68 @@ class _EditState extends State<Edit> {
       body: Center(
         child: Placeholder(),
       ),
+    );
+  }
+}
+
+class TableExample extends StatelessWidget {
+  const TableExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      border: TableBorder.all(),
+      columnWidths: const <int, TableColumnWidth>{
+        0: FlexColumnWidth(),
+        1: FlexColumnWidth(),
+        2: FlexColumnWidth(),
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: <TableRow>[
+        TableRow(
+          children: <Widget>[
+            Container(
+              height: 32,
+              color: Colors.green,
+            ),
+            TableCell(
+              verticalAlignment: TableCellVerticalAlignment.top,
+              child: Container(
+                height: 32,
+                width: 32,
+                color: Colors.red,
+              ),
+            ),
+            Container(
+              height: 64,
+              color: Colors.blue,
+            ),
+          ],
+        ),
+        TableRow(
+          decoration: const BoxDecoration(
+            color: Colors.grey,
+          ),
+          children: <Widget>[
+            Container(
+              height: 64,
+              width: 128,
+              color: Colors.purple,
+            ),
+            Container(
+              height: 32,
+              color: Colors.yellow,
+            ),
+            Center(
+              child: Container(
+                height: 32,
+                width: 32,
+                color: Colors.orange,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
