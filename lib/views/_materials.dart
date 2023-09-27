@@ -1,8 +1,6 @@
 //import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-//import 'firebase_options.dart';
 
 import 'edit.dart';
 import 'logo_icon.dart';
@@ -61,10 +59,9 @@ class _MaterialsState extends State<Materials> {
                           title: Text(listSelection[index]['header']),
                           onTap: () {
                             if (index != _count - 1) {
-                              Navigator.push(
-                                context,
+                              Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) =>
+                                  builder: (_) =>
                                       Edit(customdata: listSelection[index]),
                                 ),
                               );

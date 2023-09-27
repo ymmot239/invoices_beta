@@ -54,7 +54,7 @@ class Home extends StatelessWidget {
                     constraints.maxWidth - (constraints.maxWidth * .2),
                     constraints.maxHeight * .08),
               ),
-              child: Text('Invoice',
+              child: Text('Invoices',
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       )),
@@ -64,14 +64,14 @@ class Home extends StatelessWidget {
               // Within the `FirstScreen` widget
               onPressed: () {
                 // Navigate to the second screen using a named route.
-                Navigator.pushNamed(context, '/materials');
+                Navigator.pushNamed(context, '/customers');
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(
                     constraints.maxWidth - (constraints.maxWidth * .2),
                     constraints.maxHeight * .08),
               ),
-              child: Text('Material',
+              child: Text('Customers',
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       )),

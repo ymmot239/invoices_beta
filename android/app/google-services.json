@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "203022293738",
+    "project_id": "invoices-beta",
+    "storage_bucket": "invoices-beta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203022293738:android:ca082d1852b1813af99593",
+        "android_client_info": {
+          "package_name": "com.example.invoices_beta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo0l-ARWX8mt7kJyFZcUbgvokR41Rb5lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
