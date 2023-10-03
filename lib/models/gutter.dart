@@ -1,15 +1,21 @@
-class Gutter {
-  final String name;
-  final String desc;
-  final int number;
-  final double length;
-  final String type;
+import 'package:invoices_beta/models/general.dart';
+
+class Gutter implements General {
+  @override
+  String Name;
+
+  @override
+  String Description;
+
+  int Number;
+  double Length;
+  String Type;
 
   Gutter({
-    this.name = 'none',
-    this.desc = 'none',
-    this.number = 0,
-    this.length = 0.0,
-    this.type = '5',
+    this.Name = 'none',
+    this.Description = 'none',
+    this.Number = 0,
+    this.Length = 0.0,
+    this.Type = '5',
   });
 }

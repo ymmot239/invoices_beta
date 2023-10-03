@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
                     constraints.maxHeight * .08),
               ),
               child: Text('Prices',
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       )),
             ),
@@ -55,7 +55,7 @@ class Home extends StatelessWidget {
                     constraints.maxHeight * .08),
               ),
               child: Text('Invoices',
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       )),
             ),
@@ -72,7 +72,7 @@ class Home extends StatelessWidget {
                     constraints.maxHeight * .08),
               ),
               child: Text('Customers',
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       )),
             ),

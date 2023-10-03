@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
 import 'package:invoices_beta/models/customer.dart';
 
-import 'views/edit.dart';
+//import 'views/edit.dart';
 import 'views/home.dart';
 import 'views/CustomersScreen.dart';
 
@@ -50,14 +50,15 @@ class InvoicesApp extends StatelessWidget {
                 backgroundColor: colorscheme.primary,
                 iconTheme: const IconThemeData(color: textColor)),
             textTheme: const TextTheme(
-                bodyLarge: TextStyle(
-                  color: textColor,
-                  fontSize: 40,
-                ),
-                displayMedium: TextStyle(
-                  color: textColor,
-                  fontSize: 20,
-                )),
+              bodyLarge: TextStyle(
+                color: textColor,
+                fontSize: 40,
+              ),
+              bodyMedium: TextStyle(
+                color: textColor,
+                fontSize: 30,
+              ),
+            ),
             iconTheme: const IconThemeData(color: textColor)),
       ),
     );

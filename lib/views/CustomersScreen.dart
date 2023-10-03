@@ -17,20 +17,12 @@ class CustomersScreen extends StatefulWidget {
 class _CustomersState extends State<CustomersScreen> {
   List<dynamic> listSelection = [];
   int index = 0;
-  int _count = 1;
+  late List<Customer> customers;
   final scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    listSelection = [
-      {
-        'id': 0,
-        'header': 'unnamed customer 0',
-        //'icon': const Icon(Icons.add_circle_outlined),
-        //'taps': _addNewUploadDoc(),
-      },
-    ];
   }
 
   @override
@@ -74,16 +66,16 @@ class _CustomersState extends State<CustomersScreen> {
           separatorBuilder: (context, index) => const Divider(thickness: 1),
           itemBuilder: (context, index) {
             final customer = customers[index];
-            ListTile(
-              title: Text(customer.name),
+            return ListTile(
+              title: Text(customer.Name),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => Edit(customdata: listSelection[index]),
+                    builder: (_) => Edit(index: index),
                   ),
                 );
               },
-              leading: listSelection[index]['icon'],
+              //leading: listSelection[index]['icon'],
             );
           },
         ),
@@ -101,14 +93,24 @@ class _CustomersState extends State<CustomersScreen> {
   }
 
   void _addNewCustomer() {
-    setState(() {
-      listSelection.insert(_count, {
-        'id': _count,
-        'header': 'unnamed customer ' + (_count).toString(),
-        //'icon': Icon(Icons.add_circle_outlined),
-      });
-      _count++;
-    });
+    // setState(() {
+    //   listSelection.insert(_count, {
+    //     'id': _count,
+    //     'header': 'unnamed customer ' + (_count).toString(),
+    //     //'icon': Icon(Icons.add_circle_outlined),
+    //   });
+    //   _count++;
+    // });
+
+    ValueNotifier<List<Customer>> customerNotifier =
+        CustomerProvider.of(context);
+
+    final custom = Customer(Name: "untitled ${customerNotifier.value.length}");
+
+    customerNotifier.value = List<Customer>.from(customerNotifier.value)
+      ..add(custom);
+    FocusScope.of(context).requestFocus(FocusNode());
+    setState(() {});
   }
 
   @override
