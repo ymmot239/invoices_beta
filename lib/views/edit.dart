@@ -45,100 +45,119 @@ class _EditState extends State<Edit> {
         centerTitle: true,
         actions: const [LogoIcon()],
       ),
-      body: LayoutBuilder(builder: (context, constraints) {
-        return Column(children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
+      body: Scrollbar(
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Padding(
             padding: EdgeInsets.symmetric(
                 vertical: constraints.maxHeight * .05,
                 horizontal: constraints.maxWidth * .05),
-            child: Wrap(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children:
                   List<Widget>.generate(Customer.fields.length, (int index) {
-                return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            height: (() {
-                              if (index == Customer.fields.length - 1) {
-                                return constraints.maxHeight * .6;
-                              }
-                              return constraints.maxHeight * .1;
-                            })(),
-                            decoration: BoxDecoration(
-                                //color: Theme.of(context).primaryColorDark,
-                                border: Border.all(
-                              color: Colors
-                                  .black, //Theme.of(context).primaryColorLight,
-                              width: 2,
-                            )),
-                            padding: EdgeInsets.all(8.0), //BoxDecoration
-                            child: Text(Customer.fields[index],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        color: Colors
-                                            .black) //Theme.of(context).primaryColor),
-                                )),
+                if (index == Customer.fields.length - 1) {}
+                return Flexible(
+                    flex: 5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          //borderRadius: BorderRadius.circular(10),
+                          //color: Colors.red,
+                          border: Border.all(
+                        color:
+                            Colors.black, //Theme.of(context).primaryColorDark,
+                        width: 2,
+                      )),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [],
                       ),
-                      Flexible(
-                        flex: 2,
-                        child: Container(
-                          width: double.infinity,
-                          //height: double.infinity,
-                          height: (() {
-                            if (index == Customer.fields.length - 1) {
-                              return constraints.maxHeight * .6;
-                            }
-                            return constraints.maxHeight * .1;
-                          })(),
-                          decoration: BoxDecoration(
-                              //borderRadius: BorderRadius.circular(10),
-                              //color: Colors.red,
-                              border: Border.all(
-                            color: Colors
-                                .black, //Theme.of(context).primaryColorDark,
-                            width: 2,
-                          )),
-                          padding: EdgeInsets.all(8.0),
-                          child: (() {
-                            if (index != Customer.fields.length - 1) {
-                              return TextFormField(
-                                initialValue:
-                                    customdata.toJson()[Customer.fields[index]],
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        color: Colors
-                                            .black), //Theme.of(context).primaryColor),
-                                onFieldSubmitted: (String value) {
-                                  customdata.Name = value;
-                                  setState(() {});
-                                },
-                              );
-                            }
-                            return ListAdditions(
-                                list: customdata.Houses,
-                                newItem: newItem,
-                                editItem: editItem);
-                          })(),
-                        ),
-                      ),
-                    ]);
+                    ));
+                // return Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: <Widget>[
+                //       Flexible(
+                //         flex: 1,
+                //         child: Container(
+                //             width: double.infinity,
+                //             alignment: Alignment.center,
+                //             height: (() {
+                //               if (index == Customer.fields.length - 1) {
+                //                 return constraints.maxHeight * .6;
+                //               }
+                //               return constraints.maxHeight * .1;
+                //             })(),
+                //             decoration: BoxDecoration(
+                //                 //color: Theme.of(context).primaryColorDark,
+                //                 border: Border.all(
+                //               color: Colors
+                //                   .black, //Theme.of(context).primaryColorLight,
+                //               width: 2,
+                //             )),
+                //             padding: EdgeInsets.all(8.0), //BoxDecoration
+                //             child: Text(Customer.fields[index],
+                //                 style: Theme.of(context)
+                //                     .textTheme
+                //                     .bodyMedium
+                //                     ?.copyWith(
+                //                         color: Colors
+                //                             .black) //Theme.of(context).primaryColor),
+                //                 )),
+                //       ),
+                //       Flexible(
+                //         flex: 2,
+                //         child: Container(
+                //           width: double.infinity,
+                //           //height: double.infinity,
+                //           height: (() {
+                //             if (index == Customer.fields.length - 1) {
+                //               return constraints.maxHeight * .6;
+                //             }
+                //             return constraints.maxHeight * .1;
+                //           })(),
+                //           decoration: BoxDecoration(
+                //               //borderRadius: BorderRadius.circular(10),
+                //               //color: Colors.red,
+                //               border: Border.all(
+                //             color: Colors
+                //                 .black, //Theme.of(context).primaryColorDark,
+                //             width: 2,
+                //           )),
+                //           padding: EdgeInsets.all(8.0),
+                //           child: (() {
+                //             if (index != Customer.fields.length - 1) {
+                //               return TextFormField(
+                //                 initialValue:
+                //                     customdata.toJson()[Customer.fields[index]],
+                //                 textAlign: TextAlign.center,
+                //                 style: Theme.of(context)
+                //                     .textTheme
+                //                     .bodyMedium
+                //                     ?.copyWith(
+                //                         color: Colors
+                //                             .black), //Theme.of(context).primaryColor),
+                //                 onFieldSubmitted: (String value) {
+                //                   Map<String, dynamic> temp =
+                //                       customdata.toJson();
+                //                   temp[Customer.fields[index]] = value;
+                //                   customerNotifier.value[widget.index] =
+                //                       Customer.fromJson(temp);
+                //                   setState(() {});
+                //                 },
+                //               );
+                //             }
+                //             return ListAdditions(
+                //                 list: customdata.Houses,
+                //                 newItem: newItem,
+                //                 editItem: editItem);
+                //           })(),
+                //         ),
+                //       ),
+                //     ]);
               }),
             ),
-          )
-        ]);
-      }),
+          );
+        }),
+      ),
     );
   }
 
@@ -147,7 +166,7 @@ class _EditState extends State<Edit> {
         CustomerProvider.of(context);
 
     final custom = House(
-        Name: "untitled ${customerNotifier.value[widget.index].Houses.length}");
+        Name: "house ${customerNotifier.value[widget.index].Houses.length}");
 
     customerNotifier.value[widget.index].Houses =
         List<House>.from(customerNotifier.value[widget.index].Houses)

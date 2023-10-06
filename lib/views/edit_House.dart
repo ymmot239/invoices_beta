@@ -48,41 +48,83 @@ class _EditHouseState extends State<EditHouse> {
       ),
       body: Scrollbar(
         child: LayoutBuilder(builder: (context, constraints) {
-          return Container(
-            height: constraints.maxHeight * .9,
-            child: Column(children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: constraints.maxHeight * .05,
-                    horizontal: constraints.maxWidth * .05),
-                child: Wrap(
-                  children:
-                      List<Widget>.generate(House.fields.length, (int index) {
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Flexible(
-                            flex: 1,
-                            child: Container(
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                vertical: constraints.maxHeight * .05,
+                horizontal: constraints.maxWidth * .05),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: List<Widget>.generate(
+                  House.fields.length,
+                  (int index) {
+                    if (index != House.fields.length - 1) {
+                      return Flexible(
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2),
+                          ),
+                          child: Row(children: [
+                            Flexible(
+                              flex: 1,
+                              child: Container(
+                                  width: double.infinity,
+                                  child: Text(House.fields[index],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                              color: Colors
+                                                  .black) //Theme.of(context).primaryColor),
+                                      )),
+                            ),
+                            Flexible(
+                                flex: 2,
+                                child: Container(
+                                    decoration: const BoxDecoration(
+                                        //color: Theme.of(context).primaryColorDark,
+                                        border: Border(
+                                            left: BorderSide(
+                                                color: Colors.black,
+                                                width: 2))),
+                                    child: TextFormField(
+                                      initialValue: housedata
+                                          .toJson()[House.fields[index]]
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                              color: Colors
+                                                  .black), //Theme.of(context).primaryColor),
+                                      onFieldSubmitted: (String value) {
+                                        Map<String, dynamic> temp =
+                                            housedata.toJson();
+                                        temp[House.fields[index]] = value;
+                                        customerNotifier
+                                                .value[widget.houseIndex]
+                                                .Houses[widget.index] =
+                                            House.fromJson(temp);
+                                        setState(() {});
+                                      },
+                                    )))
+                          ]),
+                        ),
+                      );
+                    }
+                    return Flexible(
+                      flex: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              child: Container(
                                 width: double.infinity,
-                                alignment: Alignment.center,
-                                height: (() {
-                                  if (index == House.fields.length - 1) {
-                                    return constraints.maxHeight * .6;
-                                  }
-                                  return constraints.maxHeight * .1;
-                                })(),
-                                decoration: BoxDecoration(
-                                    //color: Theme.of(context).primaryColorDark,
-                                    border: Border.all(
-                                  color: Colors
-                                      .black, //Theme.of(context).primaryColorLight,
-                                  width: 2,
-                                )),
-                                padding: EdgeInsets.all(8.0), //BoxDecoration
                                 child: Text(House.fields[index],
                                     style: Theme.of(context)
                                         .textTheme
@@ -90,59 +132,28 @@ class _EditHouseState extends State<EditHouse> {
                                         ?.copyWith(
                                             color: Colors
                                                 .black) //Theme.of(context).primaryColor),
-                                    )),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Container(
-                              width: double.infinity,
-                              //height: double.infinity,
-                              height: (() {
-                                if (index == House.fields.length - 1) {
-                                  return constraints.maxHeight * .6;
-                                }
-                                return constraints.maxHeight * .1;
-                              })(),
-                              decoration: BoxDecoration(
-                                  //borderRadius: BorderRadius.circular(10),
-                                  //color: Colors.red,
-                                  border: Border.all(
-                                color: Colors
-                                    .black, //Theme.of(context).primaryColorDark,
-                                width: 2,
-                              )),
-                              padding: EdgeInsets.all(8.0),
-                              child: (() {
-                                if (index != House.fields.length - 1) {
-                                  return TextFormField(
-                                    initialValue: housedata
-                                        .toJson()[House.fields[index]]
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                            color: Colors
-                                                .black), //Theme.of(context).primaryColor),
-                                    onFieldSubmitted: (String value) {
-                                      housedata.Name = value;
-                                      setState(() {});
-                                    },
-                                  );
-                                }
-                                return ListAdditions(
+                                    ),
+                              ),
+                            ),
+                            Flexible(
+                              flex: 2,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                    border: Border(
+                                        left: BorderSide(
+                                            color: Colors.black, width: 2))),
+                                child: ListAdditions(
                                     list: housedata.Gutters,
                                     newItem: newItem,
-                                    editItem: editItem);
-                              })(),
+                                    editItem: editItem),
+                              ),
                             ),
-                          ),
-                        ]);
-                  }),
-                ),
-              )
-            ]),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                )),
           );
         }),
       ),
@@ -155,7 +166,7 @@ class _EditHouseState extends State<EditHouse> {
 
     final custom = Gutter(
         Name:
-            "untitled ${customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters.length}");
+            "gutter ${customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters.length}");
 
     customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters =
         List<Gutter>.from(customerNotifier
