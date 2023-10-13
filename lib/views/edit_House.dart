@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
 import 'package:invoices_beta/views/List_Additions.dart';
+import 'package:invoices_beta/views/edit_Gutter.dart';
 
 import 'logo_icon.dart';
 import 'package:invoices_beta/models/data_layer.dart';
@@ -179,9 +180,10 @@ class _EditHouseState extends State<EditHouse> {
   void editItem(int index) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => EditHouse(
-          houseIndex: widget.index,
-          index: index,
+        builder: (_) => EditGutter(
+          gutterIndex: index,
+          houseIndex: widget.houseIndex,
+          index: widget.index,
         ),
       ),
     );
