@@ -8,16 +8,11 @@ class Downspout implements Parts {
   String Description;
 
   @override
-  String Type;
+  String Type = "Downspout";
 
   @override
   List<Parts> Sections;
 
   Downspout(
-      {required this.Name,
-      this.Description = "",
-      this.Type = "",
-      this.Sections = const []}) {
-    Sections.add(new Parts("Add new Downspout", "", "Button"));
-  }
+      {required this.Name, this.Description = "", this.Sections = const []}) {}
 }

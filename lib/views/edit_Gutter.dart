@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
 import 'package:invoices_beta/models/customer.dart';
 import 'package:invoices_beta/models/gutter.dart';
+import 'package:invoices_beta/models/section.dart';
 import 'package:invoices_beta/views/logo_icon.dart';
+
+import '../models/parts.dart';
 
 class EditGutter extends StatefulWidget {
   final int index;
@@ -37,11 +40,162 @@ class _EditGutterState extends State<EditGutter> {
                 horizontal: constraints.maxWidth * .05),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children:
-                    List<Widget>.generate(Gutter.fields.length, (int index) {
-                  return Text(Gutter.fields[index]);
+                children: List<Widget>.generate(Gutter.fields.length + 1,
+                    (int index) {
+                  if (index < Gutter.fields.length - 1) {
+                    return Flexible(
+                      flex: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                        ),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              child: Container(
+                                  width: double.infinity,
+                                  child: Text(Gutter.fields[index],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                              color: Colors
+                                                  .black) //Theme.of(context).primaryColor),
+                                      )),
+                            ),
+                            Flexible(
+                              flex: 2,
+                              child: Container(
+                                  decoration: const BoxDecoration(
+                                      //color: Theme.of(context).primaryColorDark,
+                                      border: Border(
+                                          left: BorderSide(
+                                              color: Colors.black, width: 2))),
+                                  child: TextFormField(
+                                    initialValue: gutterdata
+                                        .toJson()[Gutter.fields[index]]
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                            color: Colors
+                                                .black), //Theme.of(context).primaryColor),
+                                    onFieldSubmitted: (String value) {
+                                      Map<String, dynamic> temp =
+                                          gutterdata.toJson();
+                                      temp[Gutter.fields[index]] = value;
+                                      customerNotifier
+                                              .value[widget.houseIndex]
+                                              .Houses[widget.index]
+                                              .Gutters[widget.gutterIndex] =
+                                          Gutter.fromJson(temp);
+                                      setState(() {});
+                                    },
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  } else if (index == Gutter.fields.length - 1) {
+                    return Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 2),
+                      ),
+                      child: Text("Parts",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: Colors.black)),
+                    );
+                  }
+                  return Flexible(
+                      flex: 7,
+                      child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2),
+                          ),
+                          child: Column(
+                              children:
+                                  // Flexible(
+                                  //   flex: 1,
+                                  //   child: Stack(
+                                  List<Widget>.generate(gutterdata.parts.length,
+                                      (int index) {
+                            return Container(
+                                child: recusion(gutterdata.parts[index], 0));
+                          })
+                                    //),),
+                                    ..add(Container(
+                                      width: double.infinity,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          gutterdata.parts =
+                                              List<Parts>.from(gutterdata.parts)
+                                                ..add(Parts.createNew(Section(
+                                                    Name: "Name",
+                                                    Sections: [])));
+                                          print(gutterdata.parts);
+                                          setState(() {});
+                                        },
+                                        child: Text("Add new Section",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    color: Colors.black)),
+                                      ),
+                                    )))));
                 })));
       })),
     );
+  }
+
+  // Widget listBuild(List<Parts> parts){
+
+  // }
+
+  Widget recusion(Parts parts, int tabs) {
+    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Container(
+        width: double.infinity,
+        child: Text("    " * tabs + parts.Name,
+            textAlign: TextAlign.left,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.black)),
+      ),
+      const Divider(thickness: 1),
+      for (Parts item in parts.Sections)
+        Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          recusion(item, tabs + 1),
+        ]),
+      if (parts.Sections.isNotEmpty) ...{
+        Container(
+          width: double.infinity,
+          child: GestureDetector(
+            onTap: () {
+              parts.Sections = List<Parts>.from(parts.Sections)
+                ..add(Parts.createNew(parts.Sections[0]));
+              setState(() {});
+            },
+            child: Text(
+                "    " * (tabs + 1) + "Add new " + parts.Sections[0].Type,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Colors.black)),
+          ),
+        ),
+        const Divider(thickness: 1),
+      }
+    ]);
   }
 }

@@ -8,16 +8,11 @@ class Section implements Parts {
   String Description;
 
   @override
-  String Type;
+  String Type = "Section";
 
   @override
   List<Parts> Sections;
 
   Section(
-      {required this.Name,
-      this.Description = "",
-      this.Type = "",
-      this.Sections = const []}) {
-    Sections.add(new Parts("Add new Section", "", "Button"));
-  }
+      {required this.Name, this.Description = "", this.Sections = const []}) {}
 }

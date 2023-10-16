@@ -155,7 +155,8 @@ class _EditHouseState extends State<EditHouse> {
 
     final custom = Gutter(
         Name:
-            "gutter ${customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters.length}");
+            "gutter ${customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters.length}",
+        parts: []);
 
     customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters =
         List<Gutter>.from(customerNotifier

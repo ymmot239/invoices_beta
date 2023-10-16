@@ -164,15 +164,12 @@ class _EditHouseState extends State<EditHouse> {
   void newItem() {
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
+    House housedata =
+        customerNotifier.value[widget.houseIndex].Houses[widget.index];
+    final custom =
+        Gutter(Name: "gutter ${housedata.Gutters.length}", parts: []);
+    housedata.Gutters = List<Gutter>.from(housedata.Gutters)..add(custom);
 
-    final custom = Gutter(
-        Name:
-            "gutter ${customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters.length}");
-
-    customerNotifier.value[widget.houseIndex].Houses[widget.index].Gutters =
-        List<Gutter>.from(customerNotifier
-            .value[widget.houseIndex].Houses[widget.index].Gutters)
-          ..add(custom);
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {});
   }

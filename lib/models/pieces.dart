@@ -8,10 +8,10 @@ class Pieces implements Parts {
   String Description;
 
   @override
-  String Type;
+  String Type = "Piece";
 
   @override
   List<Parts> Sections = const [];
 
-  Pieces({required this.Name, this.Description = "", this.Type = ""});
+  Pieces({required this.Name, this.Description = ""});
 }
