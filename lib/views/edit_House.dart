@@ -3,9 +3,11 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
+import 'package:invoices_beta/models/section.dart';
 import 'package:invoices_beta/views/List_Additions.dart';
 import 'package:invoices_beta/views/edit_Gutter.dart';
 
+import '../models/parts.dart';
 import 'logo_icon.dart';
 import 'package:invoices_beta/models/data_layer.dart';
 
@@ -166,8 +168,9 @@ class _EditHouseState extends State<EditHouse> {
         CustomerProvider.of(context);
     House housedata =
         customerNotifier.value[widget.houseIndex].Houses[widget.index];
-    final custom =
-        Gutter(Name: "gutter ${housedata.Gutters.length}", parts: []);
+    final custom = Gutter(
+        Name: "gutter ${housedata.Gutters.length}",
+        parts: [Parts.createNew(Section(Name: "Name"))]);
     housedata.Gutters = List<Gutter>.from(housedata.Gutters)..add(custom);
 
     FocusScope.of(context).requestFocus(FocusNode());

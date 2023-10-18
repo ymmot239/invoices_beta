@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../models/general.dart';
+import '../models/house.dart';
 
 class ListAdditions extends StatelessWidget {
   List<General> list;
-  void Function() newItem;
+  void Function()? newItem;
   void Function(int index) editItem;
   ListAdditions(
-      {super.key,
-      required this.list,
-      required this.newItem,
-      required this.editItem});
+      {super.key, required this.list, this.newItem, required this.editItem});
 
   @override
   Widget build(BuildContext context) {
-    list = [General(Name: "Add New")] + list;
+    list = newItem != null ? [General(Name: "Add New")] + list : list;
     return Scrollbar(
       child: ListView.separated(
           scrollDirection: Axis.vertical,
@@ -32,7 +30,7 @@ class ListAdditions extends StatelessWidget {
               ),
               onTap: () {
                 if (index == 0) {
-                  newItem();
+                  newItem!();
                 } else {
                   editItem(index - 1);
                 }

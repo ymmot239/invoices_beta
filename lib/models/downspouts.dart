@@ -13,6 +13,28 @@ class Downspout implements Parts {
   @override
   List<Parts> Sections;
 
+  @override
+  List<String> fields = ["Name", "Description"];
+
+  @override
+  Map<String, dynamic> holder = {};
+
   Downspout(
       {required this.Name, this.Description = "", this.Sections = const []}) {}
+
+  @override
+  toJson() {
+    holder = {
+      "Name": Name,
+      "Description": Description,
+      "Type": Type,
+      "Sections": Sections,
+    };
+  }
+
+  @override
+  update() {
+    Name = holder["Name"];
+    Description = holder["Description"];
+  }
 }

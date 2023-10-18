@@ -9,6 +9,7 @@ class Customer implements General {
   String Description;
 
   List<House> Houses;
+
   static const List<String> fields = ["Name", "Description", "Houses"];
 
   Customer({

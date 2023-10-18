@@ -1,17 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
 import 'package:invoices_beta/models/customer.dart';
 import 'package:invoices_beta/models/gutter.dart';
 import 'package:invoices_beta/models/section.dart';
-import 'package:invoices_beta/views/List_Additions.dart';
-import 'package:invoices_beta/views/data_additions.dart';
 import 'package:invoices_beta/views/logo_icon.dart';
 import 'package:invoices_beta/views/special_text.dart';
 
 import '../models/parts.dart';
-import '../models/pieces.dart';
 
 class EditGutter extends StatefulWidget {
   final int index;
@@ -27,7 +22,6 @@ class EditGutter extends StatefulWidget {
 }
 
 class _EditGutterState extends State<EditGutter> {
-  bool _customTileExpanded = false;
   @override
   Widget build(BuildContext context) {
     ValueNotifier<List<Customer>> customerNotifier =
@@ -212,53 +206,23 @@ class _EditGutterState extends State<EditGutter> {
   Widget recusion(Parts parts, int tabs) {
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Container(
-        width: double.infinity,
-        child: ExpansionTile(
-            title: Text("       " * tabs + parts.Name,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.black)),
-            childrenPadding:
-                EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-            children: [DataAdditions(data: parts)],
-            shape: Border(bottom: BorderSide.none),
-            controlAffinity: ListTileControlAffinity.leading),
-        // SpecialText(
-        //   insertext: "    " * tabs + parts.Name,
-        //   style: Theme.of(context)
-        //       .textTheme
-        //       .bodyMedium
-        //       ?.copyWith(color: Colors.black),
-        //   leader: Icons.arrow_right,
-        // )
-        // Text("    " * tabs + parts.Name,
-        //     textAlign: TextAlign.left,
-        //     style: Theme.of(context)
-        //         .textTheme
-        //         .bodyMedium
-        //         ?.copyWith(color: Colors.black)),
-      ),
-      const Divider(thickness: 1),
-      if (parts.runtimeType == Section) ...{
-        Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: GestureDetector(
-            onTap: () {
-              parts.Sections = List<Parts>.from(parts.Sections)
-                ..insert(0, Pieces(Name: "Piece"));
-              setState(() {});
-            },
-            child: Text("       " * (tabs + 2) + "Add new Piece",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.black)),
+          child: SpecialText(
+            insertext: "    " * tabs + parts.Name,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.black),
+            leader: Icons.arrow_right,
+          )
+          // Text("    " * tabs + parts.Name,
+          //     textAlign: TextAlign.left,
+          //     style: Theme.of(context)
+          //         .textTheme
+          //         .bodyMedium
+          //         ?.copyWith(color: Colors.black)),
           ),
-        ),
-        const Divider(thickness: 1),
-      },
+      const Divider(thickness: 1),
       for (Parts item in parts.Sections)
         Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           recusion(item, tabs + 1),
@@ -266,18 +230,14 @@ class _EditGutterState extends State<EditGutter> {
       if (parts.Sections.isNotEmpty) ...{
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 8.0),
           child: GestureDetector(
             onTap: () {
               parts.Sections = List<Parts>.from(parts.Sections)
-                ..add(
-                    Parts.createNew(parts.Sections[parts.Sections.length - 1]));
+                ..add(Parts.createNew(parts.Sections[0]));
               setState(() {});
             },
             child: Text(
-                "       " * (tabs + 2) +
-                    "Add new " +
-                    parts.Sections[parts.Sections.length - 1].Type,
+                "    " * (tabs + 1) + "Add new " + parts.Sections[0].Type,
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium

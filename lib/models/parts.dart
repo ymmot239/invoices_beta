@@ -11,23 +11,32 @@ class Parts implements General {
 
   late String Type;
   late List<Parts> Sections;
+  Map<String, dynamic> holder = {};
+
+  List<String> fields = ["Name", "Description"];
 
   Parts(this.Name, this.Description, this.Type);
 
   static Parts createNew(Parts newItem) {
     if (newItem.runtimeType == Section) {
-      return Section(Name: "New Section", Description: "", Sections: [
-        Downspout(Name: "New Downspout", Sections: [Pieces(Name: "New Piece")])
+      return Section(Name: "Section", Description: "", Sections: [
+        Downspout(Name: "Downspout", Sections: [Pieces(Name: "Piece")])
       ]);
     } else if (newItem.runtimeType == Downspout) {
       return Downspout(
-          Name: "New Downspout",
+          Name: "Downspout",
           Description: "",
-          Sections: [Pieces(Name: "New Piece")]);
+          Sections: [Pieces(Name: "Piece")]);
     } else if (newItem.runtimeType == Pieces) {
-      return Pieces(Name: "New Piece", Description: "");
+      return Pieces(Name: "Piece", Description: "");
     } else {
       return Pieces(Name: "unknown");
     }
   }
+
+  toJson() {
+    print("oh no");
+  }
+
+  update() {}
 }
