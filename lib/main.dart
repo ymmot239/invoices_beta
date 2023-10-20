@@ -6,7 +6,7 @@ import 'package:invoices_beta/models/customer.dart';
 
 //import 'views/edit.dart';
 import 'views/home.dart';
-import 'views/CustomersScreen.dart';
+import 'views/customerViews/CustomersScreen.dart';
 
 void main() {
   runApp(

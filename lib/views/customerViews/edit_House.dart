@@ -1,15 +1,12 @@
-//import 'dart:js_interop';
-
-//import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:invoices_beta/customer_provider.dart';
-import 'package:invoices_beta/models/section.dart';
-import 'package:invoices_beta/views/List_Additions.dart';
-import 'package:invoices_beta/views/edit_Gutter.dart';
 
-import '../models/parts.dart';
-import 'logo_icon.dart';
-import 'package:invoices_beta/models/data_layer.dart';
+import '../../customer_provider.dart';
+import '../../models/data_layer.dart';
+
+import '../helperViews/List_Additions.dart';
+import '../helperViews/logo_icon.dart';
+
+import './edit_Gutter.dart';
 
 class EditHouse extends StatefulWidget {
   final int index;

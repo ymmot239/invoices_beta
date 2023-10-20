@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'logo_icon.dart';
+import 'helperViews/logo_icon.dart';
 
 class Home extends StatelessWidget {
   final String title;

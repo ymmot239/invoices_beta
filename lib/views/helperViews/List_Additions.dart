@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/general.dart';
-import '../models/house.dart';
+import '../../models/general.dart';
 
 class ListAdditions extends StatelessWidget {
   List<General> list;

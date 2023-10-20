@@ -1,11 +1,10 @@
-//import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
-import 'package:invoices_beta/customer_provider.dart';
-import 'package:invoices_beta/models/data_layer.dart';
 
-import 'edit.dart';
-import 'logo_icon.dart';
+import '../../customer_provider.dart';
+import '../../models/data_layer.dart';
+
+import './edit.dart';
+import '../helperViews/logo_icon.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({super.key});

@@ -1,7 +1,4 @@
 import 'package:invoices_beta/models/data_layer.dart';
-import 'package:invoices_beta/models/downspouts.dart';
-import 'package:invoices_beta/models/pieces.dart';
-import 'package:invoices_beta/models/section.dart';
 
 class Parts implements General {
   @override

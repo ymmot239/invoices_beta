@@ -3,10 +3,10 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
-import 'package:invoices_beta/views/List_Additions.dart';
-import 'package:invoices_beta/views/edit_House.dart';
+import 'package:invoices_beta/views/helperViews/List_Additions.dart';
+import 'package:invoices_beta/views/customerViews/edit_House.dart';
 
-import 'logo_icon.dart';
+import '../helperViews/logo_icon.dart';
 import 'package:invoices_beta/models/data_layer.dart';
 
 class Edit extends StatefulWidget {
