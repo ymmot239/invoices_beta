@@ -19,7 +19,6 @@ class EditGutter extends StatefulWidget {
 }
 
 class _EditGutterState extends State<EditGutter> {
-  bool _customTileExpanded = false;
   @override
   Widget build(BuildContext context) {
     ValueNotifier<List<Customer>> customerNotifier =

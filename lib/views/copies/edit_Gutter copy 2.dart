@@ -1,14 +1,14 @@
-import 'dart:math';
+//import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
 import 'package:invoices_beta/models/customer.dart';
 import 'package:invoices_beta/models/gutter.dart';
 import 'package:invoices_beta/models/section.dart';
-import 'package:invoices_beta/views/helperViews/List_Additions.dart';
+//import 'package:invoices_beta/views/helperViews/List_Additions.dart';
 import 'package:invoices_beta/views/helperViews/data_additions.dart';
 import 'package:invoices_beta/views/helperViews/logo_icon.dart';
-import 'package:invoices_beta/views/helperViews/special_text.dart';
+//import 'package:invoices_beta/views/helperViews/special_text.dart';
 
 import '../../models/parts.dart';
 import '../../models/pieces.dart';
@@ -27,7 +27,6 @@ class EditGutter extends StatefulWidget {
 }
 
 class _EditGutterState extends State<EditGutter> {
-  bool _customTileExpanded = false;
   @override
   Widget build(BuildContext context) {
     ValueNotifier<List<Customer>> customerNotifier =

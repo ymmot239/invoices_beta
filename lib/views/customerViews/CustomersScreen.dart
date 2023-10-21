@@ -54,7 +54,7 @@ class _CustomersState extends State<CustomersScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Icon(Icons.note, size: 100, color: Colors.grey),
-            Text('You do not have any plans yet.',
+            Text('You do not have any customers yet.',
                 style: Theme.of(context).textTheme.headlineSmall)
           ]);
     } else {

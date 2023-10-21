@@ -5,9 +5,8 @@ import '../../models/general.dart';
 class ListAdditions extends StatelessWidget {
   List<General> list;
   void Function()? newItem;
-  void Function(int index) editItem;
-  ListAdditions(
-      {super.key, required this.list, this.newItem, required this.editItem});
+  void Function(int index)? editItem;
+  ListAdditions({super.key, required this.list, this.newItem, this.editItem});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +27,10 @@ class ListAdditions extends StatelessWidget {
                     ?.copyWith(color: Colors.black),
               ),
               onTap: () {
-                if (index == 0) {
+                if (newItem != null && index == 0) {
                   newItem!();
-                } else {
-                  editItem(index - 1);
+                } else if (editItem != null) {
+                  editItem!(index - 1);
                 }
               },
             );

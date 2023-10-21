@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
 import 'package:invoices_beta/models/customer.dart';
+import 'package:invoices_beta/views/invoiceViews/InvoiceScreen.dart';
 
 //import 'views/edit.dart';
 import 'views/home.dart';
@@ -34,7 +35,7 @@ class InvoicesApp extends StatelessWidget {
           '/': (context) => const Home(title: 'Blue Ribbon Gutters'),
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/prices': (context) => const Placeholder(),
-          '/invoice': (context) => const Placeholder(),
+          '/invoice': (context) => const InvoiceScreen(),
           '/customers': (context) => const CustomersScreen(),
         },
         theme: ThemeData(

@@ -28,7 +28,7 @@ class _DataAdditionsState extends State<DataAdditions> {
               children: [
                 Flexible(
                   flex: 1,
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     child: Text(fields[index],
                         style: Theme.of(context)
