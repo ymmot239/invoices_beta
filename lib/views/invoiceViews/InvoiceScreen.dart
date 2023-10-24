@@ -31,12 +31,20 @@ class _InvoiceState extends State<InvoiceScreen> {
               ? ListAdditions(
                   list: customdata,
                   editItem: editItem,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: Colors.black),
                 )
-              : Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const Icon(Icons.note, size: 100, color: Colors.grey),
-                  Text('You do not have any customers yet.',
-                      style: Theme.of(context).textTheme.headlineSmall)
-                ]);
+              : Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.note, size: 100, color: Colors.grey),
+                        Text('You do not have any customers yet.',
+                            style: Theme.of(context).textTheme.headlineSmall)
+                      ]),
+                );
         }));
   }
 
@@ -44,7 +52,7 @@ class _InvoiceState extends State<InvoiceScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => IndividualCustomer(
-          index: index,
+          index: index + 1,
         ),
       ),
     );

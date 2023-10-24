@@ -6,7 +6,9 @@ class ListAdditions extends StatelessWidget {
   List<General> list;
   void Function()? newItem;
   void Function(int index)? editItem;
-  ListAdditions({super.key, required this.list, this.newItem, this.editItem});
+  TextStyle? style;
+  ListAdditions(
+      {super.key, required this.list, this.newItem, this.editItem, this.style});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,11 @@ class ListAdditions extends StatelessWidget {
             return ListTile(
               title: Text(
                 list[index].Name,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.black),
+                style: style ??
+                    Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: Colors.black),
               ),
               onTap: () {
                 if (newItem != null && index == 0) {
