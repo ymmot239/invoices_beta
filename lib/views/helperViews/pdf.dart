@@ -5,9 +5,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
-import 'package:path_provider/path_provider.dart';
 
-import '../../models/customer.dart';
 import '../../models/data_layer.dart';
 
 class pdfs {
@@ -20,12 +18,12 @@ class pdfs {
         pageFormat: PdfPageFormat.letter,
         build: (Context context) {
           return Column(children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Flexible(
                   flex: 2,
                   child: SizedBox(
                       child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child:
                               Image(imageLogo, alignment: Alignment.center)))),
               Flexible(
@@ -44,9 +42,14 @@ class pdfs {
             SizedBox(height: 20),
             Text("Invoice for ${invoice.Name}",
                 textAlign: TextAlign.center, style: Theme.of(context).header0),
+            SizedBox(height: 20),
             for (House holder in invoice.Houses) ...[
+              Text(holder.Name),
               for (Gutter gutter in holder.Gutters) ...[
-                for (Parts part in gutter.parts) ...[recursive(part, context)]
+                for (Parts part in gutter.parts) ...[
+                  tableBuilder(part, context),
+                  SizedBox(height: 20),
+                ]
               ]
             ]
           ]);
@@ -54,7 +57,46 @@ class pdfs {
     return pdf.save();
   }
 
-  static Widget recursive(Parts part, Context context) {
-    return Text("a", style: Theme.of(context).header2);
+  static Widget tableBuilder(Parts part, Context context) {
+    return Table(border: TableBorder.all(), children: recursive(part, context));
+  }
+
+  static List<TableRow> recursive(Parts part, Context context, {int tabs = 0}) {
+    return [
+      TableRow(children: [
+        Flexible(
+            flex: 5,
+            child: Container(
+                padding: const EdgeInsets.all(8.0),
+                width: double.infinity,
+                child: Text("      " * tabs + part.Name,
+                    style: Theme.of(context).header2,
+                    textAlign: TextAlign.left))),
+        Flexible(
+            flex: 1,
+            child: Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(part.Quantity.toString()))),
+        Flexible(
+            flex: 1,
+            child: Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("\$${(part.Quantity * part.Price).toString()}"))),
+      ]),
+      for (Parts next in part.Sections)
+        ...recursive(next, context, tabs: tabs + 1)
+    ];
+
+    //
+
+    // return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+    //   SizedBox(
+    //       width: double.infinity,
+    //       child: Text(part.Name,
+    //           style: Theme.of(context).header2, textAlign: TextAlign.left)),
+    //   for (Parts next in part.Sections) ...[
+    //     recursive(next, context),
+    //   ]
+    // ]);
   }
 }

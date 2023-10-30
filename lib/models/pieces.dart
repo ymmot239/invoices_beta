@@ -14,12 +14,22 @@ class Pieces implements Parts {
   List<Parts> Sections = const [];
 
   @override
-  List<String> fields = ["Name", "Description"];
+  List<String> fields = ["Name", "Description", "Price", "Quantity"];
+
+  @override
+  int Price;
+
+  @override
+  int Quantity;
 
   @override
   Map<String, dynamic> holder = {};
 
-  Pieces({required this.Name, this.Description = ""});
+  Pieces(
+      {required this.Name,
+      this.Description = "",
+      this.Price = 0,
+      this.Quantity = 0});
 
   @override
   toJson() {
@@ -28,6 +38,8 @@ class Pieces implements Parts {
       "Description": Description,
       "Type": Type,
       "Sections": Sections,
+      "Price": Price,
+      "Quantity": Quantity,
     };
   }
 
@@ -35,5 +47,7 @@ class Pieces implements Parts {
   update() {
     Name = holder["Name"];
     Description = holder["Description"];
+    Price = int.parse(holder["Price"]);
+    Quantity = int.parse(holder["Quantity"]);
   }
 }

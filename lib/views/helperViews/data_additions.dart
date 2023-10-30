@@ -45,7 +45,8 @@ class _DataAdditionsState extends State<DataAdditions> {
                           border: Border(
                               left: BorderSide(color: Colors.grey, width: 2))),
                       child: TextFormField(
-                          initialValue: widget.data.holder[fields[index]],
+                          initialValue:
+                              widget.data.holder[fields[index]].toString(),
                           textAlign: TextAlign.left,
                           style: Theme.of(context)
                               .textTheme

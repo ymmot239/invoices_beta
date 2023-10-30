@@ -8,6 +8,10 @@ class Parts implements General {
 
   late String Type;
   late List<Parts> Sections;
+
+  late int Price;
+  late int Quantity;
+
   Map<String, dynamic> holder = {};
 
   List<String> fields = ["Name", "Description"];
