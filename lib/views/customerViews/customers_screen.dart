@@ -74,7 +74,6 @@ class _CustomersState extends State<CustomersScreen> {
                   ),
                 );
               },
-              //leading: listSelection[index]['icon'],
             );
           },
         ),
@@ -92,15 +91,6 @@ class _CustomersState extends State<CustomersScreen> {
   }
 
   void _addNewCustomer() {
-    // setState(() {
-    //   listSelection.insert(_count, {
-    //     'id': _count,
-    //     'header': 'unnamed customer ' + (_count).toString(),
-    //     //'icon': Icon(Icons.add_circle_outlined),
-    //   });
-    //   _count++;
-    // });
-
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
 

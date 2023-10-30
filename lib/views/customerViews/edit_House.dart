@@ -17,12 +17,9 @@ class EditHouse extends StatefulWidget {
 }
 
 class _EditHouseState extends State<EditHouse> {
-  //late TextEditingController _controller;
-
   @override
   void initState() {
     super.initState();
-    //_controller = TextEditingController();
   }
 
   @override
@@ -34,15 +31,6 @@ class _EditHouseState extends State<EditHouse> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit House Data"),
-        // TextFormField(
-        //   textAlign: TextAlign.center,
-        //   initialValue: housedata.name,
-        //   style: Theme.of(context).textTheme.bodyLarge,
-        //   onFieldSubmitted: (String value) {
-        //     housedata.name = value;
-        //     setState(() {});
-        //   },
-        // ),
         centerTitle: true,
         actions: const [LogoIcon()],
       ),
@@ -73,16 +61,12 @@ class _EditHouseState extends State<EditHouse> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
-                                          ?.copyWith(
-                                              color: Colors
-                                                  .black) //Theme.of(context).primaryColor),
-                                      )),
+                                          ?.copyWith(color: Colors.black))),
                             ),
                             Flexible(
                                 flex: 2,
                                 child: Container(
                                     decoration: const BoxDecoration(
-                                        //color: Theme.of(context).primaryColorDark,
                                         border: Border(
                                             left: BorderSide(
                                                 color: Colors.black,
@@ -95,9 +79,7 @@ class _EditHouseState extends State<EditHouse> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
-                                          ?.copyWith(
-                                              color: Colors
-                                                  .black), //Theme.of(context).primaryColor),
+                                          ?.copyWith(color: Colors.black),
                                       onFieldSubmitted: (String value) {
                                         Map<String, dynamic> temp =
                                             housedata.toJson();
@@ -129,10 +111,7 @@ class _EditHouseState extends State<EditHouse> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
-                                        ?.copyWith(
-                                            color: Colors
-                                                .black) //Theme.of(context).primaryColor),
-                                    ),
+                                        ?.copyWith(color: Colors.black)),
                               ),
                             ),
                             Flexible(

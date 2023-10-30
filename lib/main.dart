@@ -27,13 +27,9 @@ class InvoicesApp extends StatelessWidget {
       notifier: ValueNotifier<List<Customer>>(const []),
       child: MaterialApp(
         title: "Invoice Management",
-        // Start the app with the "/" named route. In this case, the app starts
-        // on the FirstScreen widget.
         initialRoute: '/',
         routes: {
-          // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => const Home(title: 'Blue Ribbon Gutters'),
-          // When navigating to the "/second" route, build the SecondScreen widget.
           '/prices': (context) => const Placeholder(),
           '/invoice': (context) => const InvoiceScreen(),
           '/customers': (context) => const CustomersScreen(),
@@ -42,7 +38,6 @@ class InvoicesApp extends StatelessWidget {
             useMaterial3: true,
             colorScheme: colorscheme,
             primaryColor: mainColor,
-            //scaffoldBackgroundColor: mainColor,
             appBarTheme: AppBarTheme(
                 elevation: 10,
                 titleTextStyle: const TextTheme(

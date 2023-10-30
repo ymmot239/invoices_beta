@@ -16,12 +16,9 @@ class Edit extends StatefulWidget {
 }
 
 class _EditState extends State<Edit> {
-  //late TextEditingController _controller;
-
   @override
   void initState() {
     super.initState();
-    //_controller = TextEditingController();
   }
 
   @override
@@ -32,15 +29,6 @@ class _EditState extends State<Edit> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Customer Data"),
-        // TextFormField(
-        //   textAlign: TextAlign.center,
-        //   initialValue: customdata.name,
-        //   style: Theme.of(context).textTheme.bodyLarge,
-        //   onFieldSubmitted: (String value) {
-        //     customdata.name = value;
-        //     setState(() {});
-        //   },
-        // ),
         centerTitle: true,
         actions: const [LogoIcon()],
       ),
@@ -70,10 +58,7 @@ class _EditState extends State<Edit> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
-                                        ?.copyWith(
-                                            color: Colors
-                                                .black) //Theme.of(context).primaryColor),
-                                    )),
+                                        ?.copyWith(color: Colors.black))),
                           ),
                           Flexible(
                               flex: 2,
@@ -94,11 +79,8 @@ class _EditState extends State<Edit> {
                       flex: 1,
                       child: Container(
                         decoration: BoxDecoration(
-                            //borderRadius: BorderRadius.circular(10),
-                            //color: Colors.red,
                             border: Border.all(
-                          color: Colors
-                              .black, //Theme.of(context).primaryColorDark,
+                          color: Colors.black,
                           width: 2,
                         )),
                         child: Row(
@@ -112,10 +94,7 @@ class _EditState extends State<Edit> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
-                                          ?.copyWith(
-                                              color: Colors
-                                                  .black) //Theme.of(context).primaryColor),
-                                      ),
+                                          ?.copyWith(color: Colors.black)),
                                 )),
                             Flexible(
                                 flex: 2,
@@ -132,9 +111,7 @@ class _EditState extends State<Edit> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
-                                          ?.copyWith(
-                                              color: Colors
-                                                  .black), //Theme.of(context).primaryColor),
+                                          ?.copyWith(color: Colors.black),
                                       onFieldSubmitted: (String value) {
                                         Map<String, dynamic> temp =
                                             customdata.toJson();
@@ -147,87 +124,6 @@ class _EditState extends State<Edit> {
                           ],
                         ),
                       ));
-                  // return Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: <Widget>[
-                  //       Flexible(
-                  //         flex: 1,
-                  //         child: Container(
-                  //             width: double.infinity,
-                  //             alignment: Alignment.center,
-                  //             height: (() {
-                  //               if (index == Customer.fields.length - 1) {
-                  //                 return constraints.maxHeight * .6;
-                  //               }
-                  //               return constraints.maxHeight * .1;
-                  //             })(),
-                  //             decoration: BoxDecoration(
-                  //                 //color: Theme.of(context).primaryColorDark,
-                  //                 border: Border.all(
-                  //               color: Colors
-                  //                   .black, //Theme.of(context).primaryColorLight,
-                  //               width: 2,
-                  //             )),
-                  //             padding: EdgeInsets.all(8.0), //BoxDecoration
-                  //             child: Text(Customer.fields[index],
-                  //                 style: Theme.of(context)
-                  //                     .textTheme
-                  //                     .bodyMedium
-                  //                     ?.copyWith(
-                  //                         color: Colors
-                  //                             .black) //Theme.of(context).primaryColor),
-                  //                 )),
-                  //       ),
-                  //       Flexible(
-                  //         flex: 2,
-                  //         child: Container(
-                  //           width: double.infinity,
-                  //           //height: double.infinity,
-                  //           height: (() {
-                  //             if (index == Customer.fields.length - 1) {
-                  //               return constraints.maxHeight * .6;
-                  //             }
-                  //             return constraints.maxHeight * .1;
-                  //           })(),
-                  //           decoration: BoxDecoration(
-                  //               //borderRadius: BorderRadius.circular(10),
-                  //               //color: Colors.red,
-                  //               border: Border.all(
-                  //             color: Colors
-                  //                 .black, //Theme.of(context).primaryColorDark,
-                  //             width: 2,
-                  //           )),
-                  //           padding: EdgeInsets.all(8.0),
-                  //           child: (() {
-                  //             if (index != Customer.fields.length - 1) {
-                  //               return TextFormField(
-                  //                 initialValue:
-                  //                     customdata.toJson()[Customer.fields[index]],
-                  //                 textAlign: TextAlign.center,
-                  //                 style: Theme.of(context)
-                  //                     .textTheme
-                  //                     .bodyMedium
-                  //                     ?.copyWith(
-                  //                         color: Colors
-                  //                             .black), //Theme.of(context).primaryColor),
-                  //                 onFieldSubmitted: (String value) {
-                  //                   Map<String, dynamic> temp =
-                  //                       customdata.toJson();
-                  //                   temp[Customer.fields[index]] = value;
-                  //                   customerNotifier.value[widget.index] =
-                  //                       Customer.fromJson(temp);
-                  //                   setState(() {});
-                  //                 },
-                  //               );
-                  //             }
-                  //             return ListAdditions(
-                  //                 list: customdata.Houses,
-                  //                 newItem: newItem,
-                  //                 editItem: editItem);
-                  //           })(),
-                  //         ),
-                  //       ),
-                  //     ]);
                 }
               }),
             ),

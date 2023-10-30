@@ -41,7 +41,6 @@ class _DataAdditionsState extends State<DataAdditions> {
                     flex: 2,
                     child: Container(
                       decoration: const BoxDecoration(
-                          //color: Theme.of(context).primaryColorDark,
                           border: Border(
                               left: BorderSide(color: Colors.grey, width: 2))),
                       child: TextFormField(

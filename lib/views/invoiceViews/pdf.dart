@@ -1,7 +1,3 @@
-//import 'dart:typed_data';
-
-//import 'package:flutter/material.dart';
-//import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
@@ -94,17 +90,5 @@ class Pdfs {
       for (Parts next in part.sections)
         ...recursive(next, context, tabs: tabs + 1)
     ];
-
-    //
-
-    // return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-    //   SizedBox(
-    //       width: double.infinity,
-    //       child: Text(part.Name,
-    //           style: Theme.of(context).header2, textAlign: TextAlign.left)),
-    //   for (Parts next in part.Sections) ...[
-    //     recursive(next, context),
-    //   ]
-    // ]);
   }
 }

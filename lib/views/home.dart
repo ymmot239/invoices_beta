@@ -27,9 +27,7 @@ class Home extends StatelessWidget {
                         ))),
             SizedBox(height: constraints.maxHeight * .08),
             ElevatedButton(
-              // Within the `FirstScreen` widget
               onPressed: () {
-                // Navigate to the second screen using a named route.
                 Navigator.pushNamed(context, '/prices');
               },
               style: ElevatedButton.styleFrom(
@@ -44,9 +42,7 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: constraints.maxHeight * .08),
             ElevatedButton(
-              // Within the `FirstScreen` widget
               onPressed: () {
-                // Navigate to the second screen using a named route.
                 Navigator.pushNamed(context, '/invoice');
               },
               style: ElevatedButton.styleFrom(
@@ -61,9 +57,7 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: constraints.maxHeight * .08),
             ElevatedButton(
-              // Within the `FirstScreen` widget
               onPressed: () {
-                // Navigate to the second screen using a named route.
                 Navigator.pushNamed(context, '/customers');
               },
               style: ElevatedButton.styleFrom(

@@ -57,16 +57,12 @@ class _EditGutterState extends State<EditGutter> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
-                                          ?.copyWith(
-                                              color: Colors
-                                                  .black) //Theme.of(context).primaryColor),
-                                      )),
+                                          ?.copyWith(color: Colors.black))),
                             ),
                             Flexible(
                               flex: 2,
                               child: Container(
                                   decoration: const BoxDecoration(
-                                      //color: Theme.of(context).primaryColorDark,
                                       border: Border(
                                           left: BorderSide(
                                               color: Colors.black, width: 2))),
@@ -78,9 +74,7 @@ class _EditGutterState extends State<EditGutter> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
-                                        ?.copyWith(
-                                            color: Colors
-                                                .black), //Theme.of(context).primaryColor),
+                                        ?.copyWith(color: Colors.black),
                                     onFieldSubmitted: (String value) {
                                       Map<String, dynamic> temp =
                                           gutterdata.toJson();
@@ -122,78 +116,41 @@ class _EditGutterState extends State<EditGutter> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.black, width: 2),
                           ),
-                          child:
-                              // Flexible(
-                              //   flex: 1,
-                              //   child: Stack(
-                              Scrollbar(
-                                  thickness: 10,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    //separatorBuilder: (context, index) =>const Divider(thickness: 1),
-                                    itemCount: gutterdata.parts.length + 1,
-                                    itemBuilder: (context, index) {
-                                      if (index < gutterdata.parts.length) {
-                                        return recusion(
-                                            gutterdata.parts[index], 0);
-                                      } else {
-                                        return Container(
-                                          width: double.infinity,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              gutterdata.parts =
-                                                  List<Parts>.from(
-                                                      gutterdata.parts)
-                                                    ..add(Parts.createNew(
-                                                        Section(
-                                                            name: "Name",
-                                                            sections: [])));
-                                              // print(gutterdata.parts);
-                                              setState(() {});
-                                            },
-                                            child: SpecialText(
-                                              insertext: "Add new Section",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                      color: Colors.black),
-                                              divider: true,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  )
-                                  //     List<Widget>.generate(
-                                  //         gutterdata.parts.length, (int index) {
-                                  //   return Container(
-                                  //       child:
-                                  //           recusion(gutterdata.parts[index], 0));
-                                  // })
-                                  ),
-                          //),),
-                          //   Container(
-                          //     width: double.infinity,
-                          //     child: GestureDetector(
-                          //       onTap: () {
-                          //         gutterdata.parts =
-                          //             List<Parts>.from(gutterdata.parts)
-                          //               ..add(Parts.createNew(Section(
-                          //                   Name: "Name", Sections: [])));
-                          //         print(gutterdata.parts);
-                          //         setState(() {});
-                          //       },
-                          //       child: Text("Add new Section",
-                          //           style: Theme.of(context)
-                          //               .textTheme
-                          //               .bodyMedium
-                          //               ?.copyWith(color: Colors.black)),
-                          //     ),
-                          //   )
-                          // ]));
+                          child: Scrollbar(
+                              thickness: 10,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: gutterdata.parts.length + 1,
+                                itemBuilder: (context, index) {
+                                  if (index < gutterdata.parts.length) {
+                                    return recusion(gutterdata.parts[index], 0);
+                                  } else {
+                                    return Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          gutterdata.parts =
+                                              List<Parts>.from(gutterdata.parts)
+                                                ..add(Parts.createNew(Section(
+                                                    name: "Name",
+                                                    sections: [])));
+                                          setState(() {});
+                                        },
+                                        child: SpecialText(
+                                          insertext: "Add new Section",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(color: Colors.black),
+                                          divider: true,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              )),
                         );
                       }));
                 })));
@@ -201,17 +158,13 @@ class _EditGutterState extends State<EditGutter> {
     );
   }
 
-  // Widget listBuild(List<Parts> parts){
-
-  // }
-
   Widget recusion(Parts parts, int tabs) {
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       SizedBox(
         width: double.infinity,
         child: ExpansionTile(
           title: SpecialText(
-            insertext: /*"       " * tabs +*/ parts.name,
+            insertext: parts.name,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
@@ -224,7 +177,6 @@ class _EditGutterState extends State<EditGutter> {
           controlAffinity: ListTileControlAffinity.leading,
           children: [
             if (parts.runtimeType == Section) ...[
-              //const Divider(thickness: 1,),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -268,51 +220,7 @@ class _EditGutterState extends State<EditGutter> {
             if (parts.sections.isNotEmpty) addButton(parts),
           ],
         ),
-        // SpecialText(
-        //   insertext: "    " * tabs + parts.Name,
-        //   style: Theme.of(context)
-        //       .textTheme
-        //       .bodyMedium
-        //       ?.copyWith(color: Colors.black),
-        //   leader: Icons.arrow_right,
-        // )
-        // Text("    " * tabs + parts.Name,
-        //     textAlign: TextAlign.left,
-        //     style: Theme.of(context)
-        //         .textTheme
-        //         .bodyMedium
-        //         ?.copyWith(color: Colors.black)),
       ),
-      // if (parts.runtimeType == Section) ...[
-      //   const Divider(
-      //     thickness: 1,
-      //   ),
-      //   Container(
-      //     width: double.infinity,
-      //     padding: EdgeInsets.symmetric(vertical: 8.0),
-      //     child: GestureDetector(
-      //       onTap: () {
-      //         parts.Sections = List<Parts>.from(parts.Sections)
-      //           ..insert(0, Pieces(Name: "Piece"));
-      //         setState(() {});
-      //       },
-      //       child: Text("       " * (tabs + 2) + "Add new Piece",
-      //           style: Theme.of(context)
-      //               .textTheme
-      //               .bodyMedium
-      //               ?.copyWith(color: Colors.black)),
-      //     ),
-      //   ),
-      //   const Divider(thickness: 1),
-      // ],
-      // for (Parts item in parts.Sections)
-      //   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      //     recusion(item, tabs + 1),
-      //   ]),
-      // if (parts.Sections.isNotEmpty) ...{
-      //   addButton(context: context, parts: parts),
-      //   const Divider(thickness: 1),
-      // }
     ]);
   }
 
@@ -327,7 +235,6 @@ class _EditGutterState extends State<EditGutter> {
           setState(() {});
         },
         child: SpecialText(
-          /* "       " * (tabs + 2) +*/
           insertext:
               "Add New ${parts.sections[parts.sections.length - 1].type}",
           style: Theme.of(context)
