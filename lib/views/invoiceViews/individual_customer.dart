@@ -3,12 +3,12 @@ import 'package:invoices_beta/views/helperViews/helper_views.dart';
 
 import '../../customer_provider.dart';
 import '../../models/customer.dart';
-import '../helperViews/pdf.dart';
+import 'pdf.dart';
 import 'package:printing/printing.dart';
 
 class IndividualCustomer extends StatelessWidget {
-  int index;
-  IndividualCustomer({super.key, required this.index});
+  final int index;
+  const IndividualCustomer({super.key, required this.index});
   @override
   Widget build(BuildContext context) {
     ValueNotifier<List<Customer>> customerNotifier =
@@ -16,9 +16,9 @@ class IndividualCustomer extends StatelessWidget {
     Customer customdata = customerNotifier.value[index];
     return Scaffold(
         appBar: AppBar(
-            title: Text(customdata.Name),
+            title: Text(customdata.name),
             centerTitle: true,
             actions: const [LogoIcon()]),
-        body: PdfPreview(build: (context) => pdfs.makeInvoicePdf(customdata)));
+        body: PdfPreview(build: (context) => Pdfs.makeInvoicePdf(customdata)));
   }
 }

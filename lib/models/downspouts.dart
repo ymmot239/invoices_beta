@@ -1,54 +1,54 @@
 import 'package:invoices_beta/models/parts.dart';
 
 class Downspout implements Parts {
-  @override // TODO: implement Name
-  String Name;
+  @override
+  String name;
 
   @override
-  String Description;
+  String description;
 
   @override
-  String Type = "Downspout";
+  String type = "Downspout";
 
   @override
-  List<Parts> Sections;
+  List<Parts> sections;
 
   @override
   List<String> fields = ["Name", "Description", "Price", "Quantity"];
 
   @override
-  int Price;
+  int price;
 
   @override
-  int Quantity;
+  int quantity;
 
   @override
   Map<String, dynamic> holder = {};
 
   Downspout(
-      {required this.Name,
-      this.Description = "",
-      this.Sections = const [],
-      this.Price = 0,
-      this.Quantity = 0}) {}
+      {required this.name,
+      this.description = "",
+      this.sections = const [],
+      this.price = 0,
+      this.quantity = 0});
 
   @override
   toJson() {
     holder = {
-      "Name": Name,
-      "Description": Description,
+      "Name": name,
+      "Description": description,
       "Type": Type,
-      "Sections": Sections,
-      "Price": Price,
-      "Quantity": Quantity,
+      "Sections": sections,
+      "Price": price,
+      "Quantity": quantity,
     };
   }
 
   @override
   update() {
-    Name = holder["Name"];
-    Description = holder["Description"];
-    Price = int.parse(holder["Price"]);
-    Quantity = int.parse(holder["Quantity"]);
+    name = holder["Name"];
+    description = holder["Description"];
+    price = int.parse(holder["Price"]);
+    quantity = int.parse(holder["Quantity"]);
   }
 }

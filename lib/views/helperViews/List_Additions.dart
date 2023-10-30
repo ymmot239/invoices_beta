@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import '../../models/general.dart';
 
 class ListAdditions extends StatelessWidget {
-  List<General> list;
-  void Function()? newItem;
-  void Function(int index)? editItem;
-  TextStyle? style;
-  ListAdditions(
+  final List<General> list;
+  final void Function()? newItem;
+  final void Function(int index)? editItem;
+  final TextStyle? style;
+  const ListAdditions(
       {super.key, required this.list, this.newItem, this.editItem, this.style});
 
   @override
   Widget build(BuildContext context) {
-    list = newItem != null ? [General(Name: "Add New")] + list : list;
+    List<General> list = this.list;
+    list = newItem != null ? [General(name: "Add New")] + list : list;
     return Scrollbar(
       child: ListView.separated(
           scrollDirection: Axis.vertical,
@@ -22,7 +23,7 @@ class ListAdditions extends StatelessWidget {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(
-                list[index].Name,
+                list[index].name,
                 style: style ??
                     Theme.of(context)
                         .textTheme

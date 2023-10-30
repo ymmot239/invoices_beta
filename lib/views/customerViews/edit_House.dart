@@ -6,7 +6,7 @@ import '../../models/data_layer.dart';
 import '../helperViews/List_Additions.dart';
 import '../helperViews/logo_icon.dart';
 
-import './edit_Gutter.dart';
+import 'edit_gutter.dart';
 
 class EditHouse extends StatefulWidget {
   final int index;
@@ -30,7 +30,7 @@ class _EditHouseState extends State<EditHouse> {
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
     House housedata =
-        customerNotifier.value[widget.houseIndex].Houses[widget.index];
+        customerNotifier.value[widget.houseIndex].houses[widget.index];
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit House Data"),
@@ -67,7 +67,7 @@ class _EditHouseState extends State<EditHouse> {
                           child: Row(children: [
                             Flexible(
                               flex: 1,
-                              child: Container(
+                              child: SizedBox(
                                   width: double.infinity,
                                   child: Text(House.fields[index],
                                       style: Theme.of(context)
@@ -104,7 +104,7 @@ class _EditHouseState extends State<EditHouse> {
                                         temp[House.fields[index]] = value;
                                         customerNotifier
                                                 .value[widget.houseIndex]
-                                                .Houses[widget.index] =
+                                                .houses[widget.index] =
                                             House.fromJson(temp);
                                         setState(() {});
                                       },
@@ -123,7 +123,7 @@ class _EditHouseState extends State<EditHouse> {
                           children: [
                             Flexible(
                               flex: 1,
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: Text(House.fields[index],
                                     style: Theme.of(context)
@@ -143,7 +143,7 @@ class _EditHouseState extends State<EditHouse> {
                                         left: BorderSide(
                                             color: Colors.black, width: 2))),
                                 child: ListAdditions(
-                                    list: housedata.Gutters,
+                                    list: housedata.gutters,
                                     newItem: newItem,
                                     editItem: editItem),
                               ),
@@ -164,11 +164,11 @@ class _EditHouseState extends State<EditHouse> {
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
     House housedata =
-        customerNotifier.value[widget.houseIndex].Houses[widget.index];
+        customerNotifier.value[widget.houseIndex].houses[widget.index];
     final custom = Gutter(
-        Name: "gutter ${housedata.Gutters.length}",
-        parts: [Parts.createNew(Section(Name: "Name"))]);
-    housedata.Gutters = List<Gutter>.from(housedata.Gutters)..add(custom);
+        name: "gutter ${housedata.gutters.length}",
+        parts: [Parts.createNew(Section(name: "Name"))]);
+    housedata.gutters = List<Gutter>.from(housedata.gutters)..add(custom);
 
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {});

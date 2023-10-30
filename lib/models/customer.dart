@@ -3,26 +3,26 @@ import 'package:invoices_beta/models/house.dart';
 
 class Customer implements General {
   @override
-  String Name;
+  String name;
 
   @override
-  String Description;
+  String description;
 
-  List<House> Houses;
+  List<House> houses;
 
   static const List<String> fields = ["Name", "Description", "Houses"];
 
   Customer({
-    this.Name = 'none',
-    this.Description = 'none',
-    this.Houses = const [],
+    this.name = 'none',
+    this.description = 'none',
+    this.houses = const [],
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-      Name: json['Name'] as String,
-      Description: json['Description'] as String,
-      Houses: json['Houses'] as List<House>);
+      name: json['Name'] as String,
+      description: json['Description'] as String,
+      houses: json['Houses'] as List<House>);
 
   Map<String, dynamic> toJson() =>
-      {'Name': Name, 'Description': Description, 'Houses': Houses};
+      {'Name': name, 'Description': description, 'Houses': houses};
 }

@@ -3,12 +3,12 @@ import 'package:invoices_beta/models/gutter.dart';
 
 class House implements General {
   @override
-  String Name;
+  String name;
   @override
-  String Description;
+  String description;
 
-  int Number;
-  List<Gutter> Gutters;
+  int number;
+  List<Gutter> gutters;
   static const List<String> fields = [
     "Name",
     "Description",
@@ -17,22 +17,22 @@ class House implements General {
   ];
 
   House({
-    this.Name = 'none',
-    this.Description = 'none',
-    this.Number = 0,
-    this.Gutters = const [],
+    this.name = 'none',
+    this.description = 'none',
+    this.number = 0,
+    this.gutters = const [],
   });
 
   factory House.fromJson(Map<String, dynamic> json) => House(
-      Name: json['Name'] as String,
-      Description: json['Description'] as String,
-      Number: json['Number'] as int,
-      Gutters: json['Gutters'] as List<Gutter>);
+      name: json['Name'] as String,
+      description: json['Description'] as String,
+      number: json['Number'] as int,
+      gutters: json['Gutters'] as List<Gutter>);
 
   Map<String, dynamic> toJson() => {
-        'Name': Name,
-        'Description': Description,
-        'Number': Number,
-        'Gutters': Gutters
+        'Name': name,
+        'Description': description,
+        'Number': number,
+        'Gutters': gutters
       };
 }

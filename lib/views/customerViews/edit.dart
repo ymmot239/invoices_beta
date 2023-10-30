@@ -6,7 +6,7 @@ import '../../models/data_layer.dart';
 import '../helperViews/List_Additions.dart';
 import '../helperViews/logo_icon.dart';
 
-import './edit_House.dart';
+import 'edit_house.dart';
 
 class Edit extends StatefulWidget {
   final int index;
@@ -64,7 +64,7 @@ class _EditState extends State<Edit> {
                         child: Row(children: [
                           Flexible(
                             flex: 1,
-                            child: Container(
+                            child: SizedBox(
                                 width: double.infinity,
                                 child: Text(Customer.fields[index],
                                     style: Theme.of(context)
@@ -83,7 +83,7 @@ class _EditState extends State<Edit> {
                                         left: BorderSide(
                                             color: Colors.black, width: 2))),
                                 child: ListAdditions(
-                                    list: customdata.Houses,
+                                    list: customdata.houses,
                                     newItem: newItem,
                                     editItem: editItem),
                               ))
@@ -106,7 +106,7 @@ class _EditState extends State<Edit> {
                           children: [
                             Flexible(
                                 flex: 1,
-                                child: Container(
+                                child: SizedBox(
                                   width: double.infinity,
                                   child: Text(Customer.fields[index],
                                       style: Theme.of(context)
@@ -241,11 +241,10 @@ class _EditState extends State<Edit> {
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
 
-    final custom = House(
-        Name: "house ${customerNotifier.value[widget.index].Houses.length}");
+    final custom = General.createNew(House(name: "")) as House;
 
-    customerNotifier.value[widget.index].Houses =
-        List<House>.from(customerNotifier.value[widget.index].Houses)
+    customerNotifier.value[widget.index].houses =
+        List<House>.from(customerNotifier.value[widget.index].houses)
           ..add(custom);
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {});

@@ -32,7 +32,7 @@ class _CustomersState extends State<CustomersScreen> {
           title: const Text('Customers'),
           centerTitle: true,
           iconTheme: Theme.of(context).iconTheme,
-          actions: [LogoIcon()],
+          actions: const [LogoIcon()],
         ),
         floatingActionButton: _buildAddCustomerButton(),
         body: Center(
@@ -66,7 +66,7 @@ class _CustomersState extends State<CustomersScreen> {
           itemBuilder: (context, index) {
             final customer = customers[index];
             return ListTile(
-              title: Text(customer.Name),
+              title: Text(customer.name),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -104,7 +104,7 @@ class _CustomersState extends State<CustomersScreen> {
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
 
-    final custom = Customer(Name: "untitled ${customerNotifier.value.length}");
+    final custom = General.createNew(Customer(name: "")) as Customer;
 
     customerNotifier.value = List<Customer>.from(customerNotifier.value)
       ..add(custom);

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../models/parts.dart';
 
 class DataAdditions extends StatefulWidget {
-  Parts data;
+  final Parts data;
 
-  DataAdditions({super.key, required this.data});
+  const DataAdditions({super.key, required this.data});
 
   @override
   State<DataAdditions> createState() => _DataAdditionsState();

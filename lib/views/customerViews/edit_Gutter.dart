@@ -24,7 +24,7 @@ class _EditGutterState extends State<EditGutter> {
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
     Gutter gutterdata = customerNotifier.value[widget.houseIndex]
-        .Houses[widget.index].Gutters[widget.gutterIndex];
+        .houses[widget.index].gutters[widget.gutterIndex];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -51,7 +51,7 @@ class _EditGutterState extends State<EditGutter> {
                           children: [
                             Flexible(
                               flex: 1,
-                              child: Container(
+                              child: SizedBox(
                                   width: double.infinity,
                                   child: Text(Gutter.fields[index],
                                       style: Theme.of(context)
@@ -87,8 +87,8 @@ class _EditGutterState extends State<EditGutter> {
                                       temp[Gutter.fields[index]] = value;
                                       customerNotifier
                                               .value[widget.houseIndex]
-                                              .Houses[widget.index]
-                                              .Gutters[widget.gutterIndex] =
+                                              .houses[widget.index]
+                                              .gutters[widget.gutterIndex] =
                                           Gutter.fromJson(temp);
                                       setState(() {});
                                     },
@@ -116,7 +116,7 @@ class _EditGutterState extends State<EditGutter> {
                       flex: 7,
                       child: LayoutBuilder(builder: (context, constraints) {
                         return Container(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           width: double.infinity,
                           height: constraints.maxHeight,
                           decoration: BoxDecoration(
@@ -148,9 +148,9 @@ class _EditGutterState extends State<EditGutter> {
                                                       gutterdata.parts)
                                                     ..add(Parts.createNew(
                                                         Section(
-                                                            Name: "Name",
-                                                            Sections: [])));
-                                              print(gutterdata.parts);
+                                                            name: "Name",
+                                                            sections: [])));
+                                              // print(gutterdata.parts);
                                               setState(() {});
                                             },
                                             child: SpecialText(
@@ -211,7 +211,7 @@ class _EditGutterState extends State<EditGutter> {
         width: double.infinity,
         child: ExpansionTile(
           title: SpecialText(
-            insertext: /*"       " * tabs +*/ parts.Name,
+            insertext: /*"       " * tabs +*/ parts.name,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
@@ -227,11 +227,11 @@ class _EditGutterState extends State<EditGutter> {
               //const Divider(thickness: 1,),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    parts.Sections = List<Parts>.from(parts.Sections)
-                      ..insert(0, Pieces(Name: "Piece"));
+                    parts.sections = List<Parts>.from(parts.sections)
+                      ..insert(0, Pieces(name: "Piece"));
                     setState(() {});
                   },
                   child: SpecialText(
@@ -250,7 +250,7 @@ class _EditGutterState extends State<EditGutter> {
             ] else ...[
               ExpansionTile(
                   title: SpecialText(
-                      insertext: "${parts.Name} Details",
+                      insertext: "${parts.name} Details",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -258,14 +258,14 @@ class _EditGutterState extends State<EditGutter> {
                       divider: true),
                   controlAffinity: ListTileControlAffinity.leading,
                   shape: const Border(bottom: BorderSide.none),
-                  childrenPadding: EdgeInsets.symmetric(horizontal: 40.0),
+                  childrenPadding: const EdgeInsets.symmetric(horizontal: 40.0),
                   children: [DataAdditions(data: parts)]),
             ],
-            for (Parts item in parts.Sections)
+            for (Parts item in parts.sections)
               Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 recusion(item, tabs + 1),
               ]),
-            if (parts.Sections.isNotEmpty) addButton(parts),
+            if (parts.sections.isNotEmpty) addButton(parts),
           ],
         ),
         // SpecialText(
@@ -322,14 +322,14 @@ class _EditGutterState extends State<EditGutter> {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: GestureDetector(
         onTap: () {
-          parts.Sections = List<Parts>.from(parts.Sections)
-            ..add(Parts.createNew(parts.Sections[parts.Sections.length - 1]));
+          parts.sections = List<Parts>.from(parts.sections)
+            ..add(Parts.createNew(parts.sections[parts.sections.length - 1]));
           setState(() {});
         },
         child: SpecialText(
           /* "       " * (tabs + 2) +*/
           insertext:
-              "Add New ${parts.Sections[parts.Sections.length - 1].Type}",
+              "Add New ${parts.sections[parts.sections.length - 1].type}",
           style: Theme.of(context)
               .textTheme
               .bodyMedium

@@ -2,42 +2,40 @@ import 'package:invoices_beta/models/data_layer.dart';
 
 class Parts implements General {
   @override
-  late String Name;
+  late String name;
   @override
-  late String Description;
+  late String description;
 
-  late String Type;
-  late List<Parts> Sections;
+  late String type;
+  late List<Parts> sections;
 
-  late int Price;
-  late int Quantity;
+  late int price;
+  late int quantity;
 
   Map<String, dynamic> holder = {};
 
   List<String> fields = ["Name", "Description"];
 
-  Parts(this.Name, this.Description, this.Type);
+  Parts(this.name, this.description, this.type);
 
   static Parts createNew(Parts newItem) {
     if (newItem.runtimeType == Section) {
-      return Section(Name: "Section", Description: "", Sections: [
-        Downspout(Name: "Downspout", Sections: [Pieces(Name: "Piece")])
+      return Section(name: "Section", description: "", sections: [
+        Downspout(name: "Downspout", sections: [Pieces(name: "Piece")])
       ]);
     } else if (newItem.runtimeType == Downspout) {
       return Downspout(
-          Name: "Downspout",
-          Description: "",
-          Sections: [Pieces(Name: "Piece")]);
+          name: "Downspout",
+          description: "",
+          sections: [Pieces(name: "Piece")]);
     } else if (newItem.runtimeType == Pieces) {
-      return Pieces(Name: "Piece", Description: "");
+      return Pieces(name: "Piece", description: "");
     } else {
-      return Pieces(Name: "unknown");
+      return Pieces(name: "unknown");
     }
   }
 
-  toJson() {
-    print("oh no");
-  }
+  toJson() {}
 
   update() {}
 }

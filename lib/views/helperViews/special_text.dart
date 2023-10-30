@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SpecialText extends StatelessWidget {
-  String insertext;
-  TextStyle? style;
-  IconData? leader;
-  IconData? follow;
-  String? leadtext;
-  bool divider;
+  final String insertext;
+  final TextStyle? style;
+  final IconData? leader;
+  final IconData? follow;
+  final String? leadtext;
+  final bool divider;
 
-  SpecialText(
-      {required this.insertext,
+  const SpecialText(
+      {super.key,
+      required this.insertext,
       this.style,
       this.leader,
       this.follow,

@@ -1,53 +1,60 @@
 import 'package:invoices_beta/models/parts.dart';
 
 class Pieces implements Parts {
-  @override // TODO: implement Name
-  String Name;
+  @override
+  String name;
 
   @override
-  String Description;
+  String description;
 
   @override
-  String Type = "Piece";
+  String type = "Piece";
 
   @override
-  List<Parts> Sections = const [];
+  List<Parts> sections = const [];
 
   @override
-  List<String> fields = ["Name", "Description", "Price", "Quantity"];
+  List<String> fields = ["Name", "Description", "Price", "Quantity", "Size"];
 
   @override
-  int Price;
+  int price;
 
   @override
-  int Quantity;
+  int quantity;
+
+  double size;
 
   @override
   Map<String, dynamic> holder = {};
 
+  late String shortcode;
+
   Pieces(
-      {required this.Name,
-      this.Description = "",
-      this.Price = 0,
-      this.Quantity = 0});
+      {required this.name,
+      this.description = "",
+      this.price = 0,
+      this.quantity = 0,
+      this.size = 0});
 
   @override
   toJson() {
     holder = {
-      "Name": Name,
-      "Description": Description,
+      "Name": name,
+      "Description": description,
       "Type": Type,
-      "Sections": Sections,
-      "Price": Price,
-      "Quantity": Quantity,
+      "Sections": sections,
+      "Price": price,
+      "Quantity": quantity,
+      "Size": size
     };
   }
 
   @override
   update() {
-    Name = holder["Name"];
-    Description = holder["Description"];
-    Price = int.parse(holder["Price"]);
-    Quantity = int.parse(holder["Quantity"]);
+    name = holder["Name"];
+    description = holder["Description"];
+    price = int.parse(holder["Price"]);
+    quantity = int.parse(holder["Quantity"]);
+    size = double.parse(holder["Size"]);
   }
 }

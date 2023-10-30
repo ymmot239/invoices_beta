@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:invoices_beta/customer_provider.dart';
 import 'package:invoices_beta/models/customer.dart';
-import 'package:invoices_beta/views/invoiceViews/InvoiceScreen.dart';
+import 'package:invoices_beta/views/invoiceViews/invoice_screen.dart';
 
 //import 'views/edit.dart';
 import 'views/home.dart';
-import 'views/customerViews/CustomersScreen.dart';
+import 'views/customerViews/customers_screen.dart';
 
 void main() {
   runApp(
