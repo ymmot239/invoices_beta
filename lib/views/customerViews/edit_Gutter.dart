@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoices_beta/views/customerViews/table_view.dart';
 
 import '../../customer_provider.dart';
 import '../../models/data_layer.dart';
@@ -25,137 +26,70 @@ class _EditGutterState extends State<EditGutter> {
         CustomerProvider.of(context);
     Gutter gutterdata = customerNotifier.value[widget.houseIndex]
         .houses[widget.index].gutters[widget.gutterIndex];
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        actions: const [LogoIcon()],
-        title: const Text("Edit Gutter Data"),
-      ),
-      body: LayoutBuilder(builder: (context, constraints) {
-        return Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: constraints.maxHeight * .05,
-                horizontal: constraints.maxWidth * .05),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List<Widget>.generate(Gutter.fields.length + 1,
-                    (int index) {
-                  if (index < Gutter.fields.length - 1) {
-                    return Flexible(
-                      flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2),
-                        ),
-                        child: Row(
-                          children: [
-                            Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                  width: double.infinity,
-                                  child: Text(Gutter.fields[index],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(color: Colors.black))),
-                            ),
-                            Flexible(
-                              flex: 2,
-                              child: Container(
-                                  decoration: const BoxDecoration(
-                                      border: Border(
-                                          left: BorderSide(
-                                              color: Colors.black, width: 2))),
-                                  child: TextFormField(
-                                    initialValue: gutterdata
-                                        .toJson()[Gutter.fields[index]]
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(color: Colors.black),
-                                    onFieldSubmitted: (String value) {
-                                      Map<String, dynamic> temp =
-                                          gutterdata.toJson();
-                                      temp[Gutter.fields[index]] = value;
-                                      customerNotifier
-                                              .value[widget.houseIndex]
-                                              .houses[widget.index]
-                                              .gutters[widget.gutterIndex] =
-                                          Gutter.fromJson(temp);
-                                      setState(() {});
-                                    },
-                                  )),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  } else if (index == Gutter.fields.length - 1) {
-                    return Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 2),
-                      ),
-                      child: Text("Parts",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(color: Colors.black)),
-                    );
-                  }
-                  return Flexible(
-                      flex: 7,
-                      child: LayoutBuilder(builder: (context, constraints) {
-                        return Container(
-                          padding: const EdgeInsets.all(8.0),
-                          width: double.infinity,
-                          height: constraints.maxHeight,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 2),
-                          ),
-                          child: Scrollbar(
-                              thickness: 10,
-                              child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: gutterdata.parts.length + 1,
-                                itemBuilder: (context, index) {
-                                  if (index < gutterdata.parts.length) {
-                                    return recusion(gutterdata.parts[index], 0);
-                                  } else {
-                                    return Container(
-                                      width: double.infinity,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          gutterdata.parts =
-                                              List<Parts>.from(gutterdata.parts)
-                                                ..add(Parts.createNew(Section(
-                                                    name: "Name",
-                                                    sections: [])));
-                                          setState(() {});
-                                        },
-                                        child: SpecialText(
-                                          insertext: "Add new Section",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
-                                              ?.copyWith(color: Colors.black),
-                                          divider: true,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                              )),
-                        );
-                      }));
-                })));
-      }),
-    );
+    return TableView(title: "Edit Gutter", listTitles: [
+      for (String x in Gutter.fields) ...[
+        Text(x,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.black))
+      ],
+    ], listContents: [
+      for (int x = 0; x < Gutter.fields.length - 1; x++) ...[
+        TextFormField(
+          initialValue: gutterdata.toJson()[Gutter.fields[x]].toString(),
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.black),
+          onFieldSubmitted: (String value) {
+            Map<String, dynamic> temp = gutterdata.toJson();
+            temp[Gutter.fields[x]] = value;
+            customerNotifier.value[widget.houseIndex].houses[widget.index]
+                .gutters[widget.gutterIndex] = Gutter.fromJson(temp);
+            setState(() {});
+          },
+        )
+      ],
+      Scrollbar(
+          thickness: 10,
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: gutterdata.parts.length + 1,
+            itemBuilder: (context, index) {
+              if (index < gutterdata.parts.length) {
+                return recusion(gutterdata.parts[index], 0);
+              } else {
+                return Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      gutterdata.parts = List<Parts>.from(gutterdata.parts)
+                        ..add(Parts.createNew(
+                            Section(name: "Name", sections: [])));
+                      setState(() {});
+                    },
+                    child: SpecialText(
+                      insertext: "Add new Section",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.black),
+                      divider: true,
+                    ),
+                  ),
+                );
+              }
+            },
+          )),
+    ], rowFlex: [
+      for (int x = 0; x < House.fields.length - 2; x++) ...[1],
+      7,
+    ], columnFlex: [
+      for (int x = 0; x < House.fields.length - 1; x++) ...[(1, 2)],
+    ]);
   }
 
   Widget recusion(Parts parts, int tabs) {

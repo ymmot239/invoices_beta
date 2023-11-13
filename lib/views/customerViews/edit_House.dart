@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoices_beta/views/customerViews/table_view.dart';
 
 import '../../customer_provider.dart';
 import '../../models/data_layer.dart';
@@ -28,115 +29,43 @@ class _EditHouseState extends State<EditHouse> {
         CustomerProvider.of(context);
     House housedata =
         customerNotifier.value[widget.houseIndex].houses[widget.index];
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Edit House Data"),
-        centerTitle: true,
-        actions: const [LogoIcon()],
-      ),
-      body: Scrollbar(
-        child: LayoutBuilder(builder: (context, constraints) {
-          return Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: constraints.maxHeight * .05,
-                horizontal: constraints.maxWidth * .05),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List<Widget>.generate(
-                  House.fields.length,
-                  (int index) {
-                    if (index != House.fields.length - 1) {
-                      return Flexible(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 2),
-                          ),
-                          child: Row(children: [
-                            Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                  width: double.infinity,
-                                  child: Text(House.fields[index],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(color: Colors.black))),
-                            ),
-                            Flexible(
-                                flex: 2,
-                                child: Container(
-                                    decoration: const BoxDecoration(
-                                        border: Border(
-                                            left: BorderSide(
-                                                color: Colors.black,
-                                                width: 2))),
-                                    child: TextFormField(
-                                      initialValue: housedata
-                                          .toJson()[House.fields[index]]
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(color: Colors.black),
-                                      onFieldSubmitted: (String value) {
-                                        Map<String, dynamic> temp =
-                                            housedata.toJson();
-                                        temp[House.fields[index]] = value;
-                                        customerNotifier
-                                                .value[widget.houseIndex]
-                                                .houses[widget.index] =
-                                            House.fromJson(temp);
-                                        setState(() {});
-                                      },
-                                    )))
-                          ]),
-                        ),
-                      );
-                    }
-                    return Flexible(
-                      flex: 5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 2)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Flexible(
-                              flex: 1,
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Text(House.fields[index],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(color: Colors.black)),
-                              ),
-                            ),
-                            Flexible(
-                              flex: 2,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        left: BorderSide(
-                                            color: Colors.black, width: 2))),
-                                child: ListAdditions(
-                                    list: housedata.gutters,
-                                    newItem: newItem,
-                                    editItem: editItem),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                )),
-          );
-        }),
-      ),
-    );
+    return TableView(title: "Edit House Data", listTitles: [
+      for (String x in House.fields) ...[
+        Text(x,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.black))
+      ]
+    ], listContents: [
+      for (int x = 0; x < House.fields.length - 1; x++) ...[
+        TextFormField(
+          initialValue: housedata.toJson()[House.fields[x]].toString(),
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.black),
+          onFieldSubmitted: (String value) {
+            Map<String, dynamic> temp = housedata.toJson();
+            temp[House.fields[x]] = value;
+            customerNotifier.value[widget.index].houses[widget.houseIndex] =
+                House.fromJson(temp);
+            setState(() {});
+          },
+        )
+      ],
+      ListAdditions(
+        list: housedata.gutters,
+        newItem: newItem,
+        editItem: editItem,
+      )
+    ], rowFlex: [
+      for (int x = 0; x < House.fields.length - 1; x++) ...[1],
+      5
+    ], columnFlex: [
+      for (int x = 0; x < House.fields.length; x++) ...[(1, 2)],
+    ]);
   }
 
   void newItem() {
@@ -144,9 +73,7 @@ class _EditHouseState extends State<EditHouse> {
         CustomerProvider.of(context);
     House housedata =
         customerNotifier.value[widget.houseIndex].houses[widget.index];
-    final custom = Gutter(
-        name: "gutter ${housedata.gutters.length}",
-        parts: [Parts.createNew(Section(name: "Name"))]);
+    final custom = General.createNew(Gutter(name: "", parts: [])) as Gutter;
     housedata.gutters = List<Gutter>.from(housedata.gutters)..add(custom);
 
     FocusScope.of(context).requestFocus(FocusNode());

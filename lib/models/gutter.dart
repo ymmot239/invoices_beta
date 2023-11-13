@@ -1,8 +1,9 @@
-import 'package:invoices_beta/models/general.dart';
+import 'general.dart';
 
 import 'parts.dart';
 
 class Gutter implements General {
+  static int count = 0;
   @override
   String name;
 
@@ -11,7 +12,7 @@ class Gutter implements General {
 
   late List<Parts> parts;
 
-  static const List<String> fields = ["Name", "Description", "parts"];
+  static const List<String> fields = ["Name", "Description", "Parts"];
 
   Gutter({this.name = 'none', this.description = 'none', required this.parts});
 

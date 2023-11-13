@@ -1,4 +1,4 @@
-import 'package:invoices_beta/models/parts.dart';
+import 'parts.dart';
 
 class Section implements Parts {
   @override

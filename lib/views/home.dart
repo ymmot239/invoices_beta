@@ -28,14 +28,14 @@ class Home extends StatelessWidget {
             SizedBox(height: constraints.maxHeight * .08),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/prices');
+                Navigator.pushNamed(context, '/customers');
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(
                     constraints.maxWidth - (constraints.maxWidth * .2),
                     constraints.maxHeight * .08),
               ),
-              child: Text('Prices',
+              child: Text('Customers',
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       )),
@@ -58,14 +58,14 @@ class Home extends StatelessWidget {
             SizedBox(height: constraints.maxHeight * .08),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/customers');
+                Navigator.pushNamed(context, '/prices');
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(
                     constraints.maxWidth - (constraints.maxWidth * .2),
                     constraints.maxHeight * .08),
               ),
-              child: Text('Customers',
+              child: Text('Prices',
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       )),

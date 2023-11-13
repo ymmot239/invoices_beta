@@ -7,6 +7,7 @@ import '../helperViews/List_Additions.dart';
 import '../helperViews/logo_icon.dart';
 
 import 'edit_house.dart';
+import 'table_view.dart';
 
 class Edit extends StatefulWidget {
   final int index;
@@ -26,111 +27,39 @@ class _EditState extends State<Edit> {
     ValueNotifier<List<Customer>> customerNotifier =
         CustomerProvider.of(context);
     Customer customdata = customerNotifier.value[widget.index];
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Edit Customer Data"),
-        centerTitle: true,
-        actions: const [LogoIcon()],
-      ),
-      body: Scrollbar(
-        child: LayoutBuilder(builder: (context, constraints) {
-          return Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: constraints.maxHeight * .05,
-                horizontal: constraints.maxWidth * .05),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children:
-                  List<Widget>.generate(Customer.fields.length, (int index) {
-                if (index == Customer.fields.length - 1) {
-                  return Flexible(
-                    flex: 5,
-                    child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2),
-                        ),
-                        child: Row(children: [
-                          Flexible(
-                            flex: 1,
-                            child: SizedBox(
-                                width: double.infinity,
-                                child: Text(Customer.fields[index],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(color: Colors.black))),
-                          ),
-                          Flexible(
-                              flex: 2,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        left: BorderSide(
-                                            color: Colors.black, width: 2))),
-                                child: ListAdditions(
-                                    list: customdata.houses,
-                                    newItem: newItem,
-                                    editItem: editItem),
-                              ))
-                        ])),
-                  );
-                } else {
-                  return Flexible(
-                      flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                          color: Colors.black,
-                          width: 2,
-                        )),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Flexible(
-                                flex: 1,
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  child: Text(Customer.fields[index],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(color: Colors.black)),
-                                )),
-                            Flexible(
-                                flex: 2,
-                                child: Container(
-                                    decoration: const BoxDecoration(
-                                        border: Border(
-                                            left: BorderSide(
-                                                color: Colors.black,
-                                                width: 2))),
-                                    child: TextFormField(
-                                      initialValue: customdata
-                                          .toJson()[Customer.fields[index]],
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(color: Colors.black),
-                                      onFieldSubmitted: (String value) {
-                                        Map<String, dynamic> temp =
-                                            customdata.toJson();
-                                        temp[Customer.fields[index]] = value;
-                                        customerNotifier.value[widget.index] =
-                                            Customer.fromJson(temp);
-                                        setState(() {});
-                                      },
-                                    )))
-                          ],
-                        ),
-                      ));
-                }
-              }),
-            ),
-          );
-        }),
-      ),
-    );
+    return TableView(title: "Edit Customer Data", listTitles: [
+      for (String x in Customer.fields) ...[
+        Text(x,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.black))
+      ]
+    ], listContents: [
+      for (int x = 0; x < Customer.fields.length - 1; x++) ...[
+        TextFormField(
+          initialValue: customdata.toJson()[Customer.fields[x]],
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Colors.black),
+          onFieldSubmitted: (String value) {
+            Map<String, dynamic> temp = customdata.toJson();
+            temp[Customer.fields[x]] = value;
+            customerNotifier.value[widget.index] = Customer.fromJson(temp);
+            setState(() {});
+          },
+        )
+      ],
+      ListAdditions(
+          list: customdata.houses, newItem: newItem, editItem: editItem)
+    ], rowFlex: [
+      for (int x = 0; x < Customer.fields.length - 1; x++) ...[1],
+      5
+    ], columnFlex: [
+      for (int x = 0; x < Customer.fields.length; x++) ...[(1, 2)],
+    ]);
   }
 
   void newItem() {

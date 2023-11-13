@@ -1,4 +1,4 @@
-import 'package:invoices_beta/models/data_layer.dart';
+import 'data_layer.dart';
 
 class Parts implements General {
   @override

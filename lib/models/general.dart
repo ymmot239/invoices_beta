@@ -11,14 +11,16 @@ class General {
     switch (newItem.runtimeType) {
       case Customer:
         return Customer(
-            name: "Untitled", houses: [createNew(House(name: "")) as House]);
+            name: "Customer ${Customer.count++}",
+            houses: [createNew(House(name: "")) as House]);
       case House:
         return House(
-            name: "Untitled",
+            name: "House ${House.count++}",
             gutters: [createNew(Gutter(name: "", parts: [])) as Gutter]);
       case Gutter:
         return Gutter(
-            name: "Untitled", parts: [Parts.createNew(Section(name: "Name"))]);
+            name: "Gutter ${Gutter.count++}",
+            parts: [Parts.createNew(Section(name: "Name"))]);
       default:
         return General(name: "Error");
     }

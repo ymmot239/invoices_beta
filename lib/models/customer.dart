@@ -1,7 +1,9 @@
-import 'package:invoices_beta/models/general.dart';
-import 'package:invoices_beta/models/house.dart';
+import 'general.dart';
+import 'house.dart';
 
 class Customer implements General {
+  static int count = 0;
+
   @override
   String name;
 
